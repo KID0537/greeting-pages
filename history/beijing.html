@@ -1,130 +1,320 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>北京 · 第二年</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>北京 · 第一年</title>
+
 
   <style>
+
+    /* ==============================
+       BASIC
+    ============================== */
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
     }
 
     body {
-      min-height: 100vh;
-
       font-family:
         "PingFang SC",
         "Microsoft YaHei",
         sans-serif;
 
       color: white;
-      overflow: hidden;
 
       background: #18202b;
 
-      transition: background 1s ease;
+      overflow: hidden;
     }
 
 
-    /* ================================
-       背景
-    ================================= */
+    button {
+      font-family: inherit;
+    }
+
+
+    /* ==============================
+       BACKGROUND
+    ============================== */
 
     .background {
       position: fixed;
+
       inset: 0;
 
       z-index: -2;
 
-      transition:
-        background 1s ease,
-        opacity 1s ease;
-
       background:
         radial-gradient(
-          circle at 20% 20%,
-          rgba(255,255,255,.10),
-          transparent 30%
+          circle at 25% 25%,
+          rgba(255, 195, 100, .22),
+          transparent 29%
         ),
         linear-gradient(
           145deg,
-          #526a62,
-          #8b9b82 55%,
-          #c9a6a6
+          #554332,
+          #8b6541 55%,
+          #ad7d55
         );
+
+      transition:
+        background 1s ease;
     }
+
 
     .overlay {
       position: fixed;
+
       inset: 0;
 
       z-index: -1;
 
+      pointer-events: none;
+
       background:
         linear-gradient(
           180deg,
-          rgba(0,0,0,.05),
-          rgba(0,0,0,.35)
+          rgba(0, 0, 0, .04),
+          rgba(0, 0, 0, .34)
         );
     }
 
 
-    /* ================================
-       主页面
-    ================================= */
+    /* ==============================
+       TOP BAR
+    ============================== */
+
+    .topbar {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+
+      padding:
+        24px 30px;
+
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+
+      z-index: 10;
+
+      pointer-events: none;
+    }
+
+
+    .brand {
+      font-size: 13px;
+
+      font-weight: 600;
+
+      letter-spacing: 4px;
+
+      opacity: .65;
+    }
+
+
+    .signature-top {
+      font-size: 13px;
+
+      letter-spacing: 3px;
+
+      opacity: .65;
+    }
+
+
+    /* ==============================
+       MUSIC
+    ============================== */
+
+    .music-area {
+      position: fixed;
+
+      right: 28px;
+      top: 72px;
+
+      z-index: 60;
+
+      display: flex;
+
+      flex-direction: column;
+      align-items: flex-end;
+
+      gap: 8px;
+    }
+
+
+    .music-btn {
+      width: 46px;
+      height: 46px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid rgba(255, 255, 255, .22);
+
+      background:
+        rgba(255, 255, 255, .10);
+
+      color: white;
+
+      backdrop-filter:
+        blur(14px);
+
+      cursor: pointer;
+
+      font-size: 18px;
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      transition:
+        transform .25s ease,
+        background .25s ease,
+        opacity .25s ease;
+
+      opacity: .72;
+    }
+
+
+    .music-btn:hover {
+      opacity: 1;
+
+      transform:
+        scale(1.08);
+
+      background:
+        rgba(255, 255, 255, .17);
+    }
+
+
+    .music-btn.playing {
+      opacity: 1;
+
+      animation:
+        musicPulse 2s ease-in-out infinite;
+    }
+
+
+    @keyframes musicPulse {
+
+      50% {
+        transform:
+          scale(1.08);
+
+        box-shadow:
+          0 0 20px
+          rgba(255, 255, 255, .18);
+      }
+
+    }
+
+
+    .music-status {
+      max-width: 190px;
+
+      padding:
+        6px 10px;
+
+      border-radius: 10px;
+
+      background:
+        rgba(0, 0, 0, .22);
+
+      backdrop-filter:
+        blur(10px);
+
+      font-size: 11px;
+
+      line-height: 1.5;
+
+      opacity: 0;
+
+      transform:
+        translateY(-4px);
+
+      pointer-events: none;
+
+      transition:
+        opacity .3s ease,
+        transform .3s ease;
+    }
+
+
+    .music-status.show {
+      opacity: .72;
+
+      transform:
+        translateY(0);
+    }
+
+
+    /* ==============================
+       MAIN
+    ============================== */
 
     .app {
       width: 100vw;
       height: 100vh;
 
       display: flex;
+
       flex-direction: column;
 
-      align-items: center;
       justify-content: center;
+      align-items: center;
 
-      padding: 32px 24px;
+      padding:
+        90px 24px 105px;
     }
 
 
-    /* ================================
-       顶部
-    ================================= */
-
-    .top {
+    .header {
       position: absolute;
 
-      top: 32px;
-      left: 50%;
-
-      transform: translateX(-50%);
+      top: 72px;
 
       width: 90%;
 
       text-align: center;
     }
 
+
     .small {
       font-size: 11px;
 
       letter-spacing: 5px;
 
-      opacity: .45;
+      opacity: .42;
     }
 
-    .top h1 {
+
+    .header h1 {
       margin-top: 10px;
 
       font-size:
-        clamp(26px, 4vw, 40px);
+        clamp(27px, 4vw, 42px);
 
       font-weight: 500;
 
@@ -132,21 +322,21 @@
     }
 
 
-    /* ================================
-       中央文字
-    ================================= */
+    /* ==============================
+       SEASON CONTENT
+    ============================== */
 
     .content {
-      width: min(720px, 92vw);
+      width:
+        min(720px, 92vw);
 
       text-align: center;
-
-      opacity: 1;
 
       transition:
         opacity .35s ease,
         transform .35s ease;
     }
+
 
     .content.change {
       opacity: 0;
@@ -155,36 +345,43 @@
         translateY(10px);
     }
 
-    .season-icon {
-      font-size: 55px;
 
-      margin-bottom: 20px;
+    .season-icon {
+      font-size: 56px;
+
+      margin-bottom: 18px;
     }
 
+
     .season-name {
-      font-family: serif;
+      font-family:
+        "Songti SC",
+        "STSong",
+        serif;
 
       font-size:
-        clamp(52px, 9vw, 90px);
+        clamp(55px, 9vw, 92px);
 
       font-weight: 400;
 
-      letter-spacing: 8px;
+      letter-spacing: 10px;
 
-      margin-bottom: 17px;
+      margin-bottom: 16px;
     }
+
 
     .season-date {
-      font-size: 12px;
+      font-size: 11px;
 
-      letter-spacing: 3px;
+      letter-spacing: 4px;
 
-      opacity: .45;
+      opacity: .42;
 
-      margin-bottom: 32px;
+      margin-bottom: 30px;
     }
 
-    .text {
+
+    .season-text {
       font-family:
         "Songti SC",
         "STSong",
@@ -193,34 +390,41 @@
       font-size:
         clamp(17px, 2vw, 20px);
 
-      line-height: 2.15;
+      line-height: 2.1;
 
       letter-spacing: .5px;
 
-      opacity: .9;
+      opacity: .88;
     }
 
 
-    /* ================================
-       四季按钮
-    ================================= */
+    /* ==============================
+       SEASON NAV
+    ============================== */
 
-    .seasons {
+    .season-nav {
       position: absolute;
 
-      bottom: 48px;
+      bottom: 42px;
+
+      left: 50%;
+
+      transform:
+        translateX(-50%);
 
       display: flex;
 
-      gap: 12px;
+      gap: 11px;
     }
+
 
     .season-btn {
       border:
-        1px solid rgba(255,255,255,.18);
+        1px solid
+        rgba(255, 255, 255, .18);
 
       background:
-        rgba(255,255,255,.07);
+        rgba(255, 255, 255, .07);
 
       color: white;
 
@@ -231,14 +435,19 @@
 
       cursor: pointer;
 
-      backdrop-filter: blur(12px);
+      backdrop-filter:
+        blur(12px);
 
       font-size: 13px;
 
-      opacity: .6;
+      opacity: .58;
 
-      transition: .3s;
+      transition:
+        transform .25s ease,
+        background .25s ease,
+        opacity .25s ease;
     }
+
 
     .season-btn:hover,
     .season-btn.active {
@@ -248,22 +457,21 @@
         translateY(-3px);
 
       background:
-        rgba(255,255,255,.16);
-
-      border-color:
-        rgba(255,255,255,.35);
+        rgba(255, 255, 255, .16);
     }
 
 
-    /* ================================
-       最终页入口
-    ================================= */
+    /* ==============================
+       FINAL ENTRY
+    ============================== */
 
-    .finish {
-      position: absolute;
+    .finish-btn {
+      position: fixed;
 
-      right: 35px;
-      bottom: 45px;
+      right: 30px;
+      bottom: 38px;
+
+      z-index: 10;
 
       border: none;
 
@@ -271,174 +479,118 @@
 
       color: white;
 
-      opacity: .38;
-
       cursor: pointer;
 
       font-size: 13px;
 
-      transition: .3s;
-    }
+      letter-spacing: 1px;
 
-    .finish:hover {
-      opacity: 1;
-    }
-
-
-    /* ================================
-       音乐按钮
-    ================================= */
-
-    .music-btn {
-      position: fixed;
-
-      top: 26px;
-      right: 30px;
-
-      z-index: 60;
-
-      width: 44px;
-      height: 44px;
-
-      border-radius: 50%;
-
-      border:
-        1px solid rgba(255,255,255,.18);
-
-      background:
-        rgba(255,255,255,.08);
-
-      color: white;
-
-      backdrop-filter:
-        blur(12px);
-
-      cursor: pointer;
-
-      font-size: 17px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      opacity: .6;
+      opacity: .48;
 
       transition:
-        opacity .3s ease,
-        transform .3s ease,
-        background .3s ease;
+        opacity .25s ease,
+        transform .25s ease;
     }
 
-    .music-btn:hover {
+
+    .finish-btn:hover {
       opacity: 1;
 
       transform:
-        scale(1.08);
-
-      background:
-        rgba(255,255,255,.14);
-    }
-
-    .music-btn.playing {
-      opacity: .95;
-
-      animation:
-        musicPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes musicPulse {
-      50% {
-        transform:
-          scale(1.1);
-
-        box-shadow:
-          0 0 18px rgba(255,255,255,.18);
-      }
+        translateX(4px);
     }
 
 
-    /* ================================
-       最终页
-    ================================= */
+    /* ==============================
+       FINAL PAGE
+    ============================== */
 
     .final-page {
       position: fixed;
 
       inset: 0;
 
-      z-index: 20;
-
-      display: flex;
-
-      justify-content: center;
-      align-items: center;
+      z-index: 100;
 
       background:
         radial-gradient(
-          circle at 50% 20%,
-          rgba(215,190,145,.12),
-          transparent 30%
+          circle at 50% 0%,
+          rgba(211, 187, 143, .14),
+          transparent 32%
         ),
         linear-gradient(
           160deg,
-          #111820,
-          #182635 60%,
-          #10161d
+          #10161d,
+          #182634 58%,
+          #10171f
         );
 
       opacity: 0;
 
+      visibility: hidden;
+
       pointer-events: none;
 
       transition:
-        opacity .8s ease;
+        opacity .55s ease,
+        visibility .55s ease;
     }
+
 
     .final-page.active {
       opacity: 1;
 
+      visibility: visible;
+
       pointer-events: auto;
     }
 
+
+    /* 最关键：
+       整个长页面本身可以滚动 */
+    .final-scroll {
+      position: absolute;
+
+      inset: 0;
+
+      overflow-y: auto;
+
+      overflow-x: hidden;
+
+      padding:
+        120px 24px 100px;
+
+      scroll-behavior: smooth;
+
+      -webkit-overflow-scrolling: touch;
+    }
+
+
     .final-content {
       width:
-        min(720px, 86vw);
+        min(730px, 88vw);
+
+      margin: 0 auto;
 
       text-align: center;
-
-      animation:
-        rise .9s ease;
     }
 
-    @keyframes rise {
-      from {
-        opacity: 0;
-
-        transform:
-          translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-
-        transform:
-          translateY(0);
-      }
-    }
 
     .final-small {
       font-size: 11px;
 
       letter-spacing: 5px;
 
-      opacity: .35;
+      opacity: .34;
 
-      margin-bottom: 25px;
+      margin-bottom: 28px;
     }
+
 
     .final-title {
       font-family:
         "Songti SC",
+        "STSong",
         serif;
 
       font-size:
@@ -446,428 +598,662 @@
 
       font-weight: 400;
 
-      line-height: 1.5;
+      line-height: 1.55;
 
-      margin-bottom: 38px;
+      margin-bottom: 48px;
     }
+
 
     .final-text {
       font-family:
         "Songti SC",
+        "STSong",
         serif;
 
       font-size:
         clamp(16px, 2vw, 19px);
 
-      line-height: 2.2;
+      line-height: 2.25;
+
+      letter-spacing: .4px;
 
       opacity: .72;
     }
 
+
+    .final-separator {
+      width: 38px;
+      height: 1px;
+
+      margin:
+        48px auto;
+
+      background:
+        rgba(255, 255, 255, .25);
+    }
+
+
     .quote {
       margin:
-        48px 0 28px;
+        55px 0;
 
       font-family:
         "Songti SC",
+        "STSong",
         serif;
 
       font-size:
-        clamp(21px, 3vw, 28px);
+        clamp(22px, 3vw, 29px);
+
+      line-height: 1.8;
 
       letter-spacing: 2px;
 
-      color: #e5d3ae;
+      color: #e7d6b5;
     }
 
+
     .signature {
-      margin-top: 45px;
+      margin-top: 55px;
 
       text-align: right;
 
-      opacity: .5;
-
       font-size: 14px;
+
+      letter-spacing: 2px;
+
+      opacity: .5;
     }
 
-    .back {
-      position: absolute;
 
-      left: 30px;
-      top: 30px;
+    /* ==============================
+       BACK BUTTON
+    ============================== */
 
-      border: none;
+    .back-btn {
+      position: fixed;
+
+      top: 28px;
+      left: 28px;
+
+      z-index: 150;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, .14);
+
+      background:
+        rgba(255, 255, 255, .06);
 
       color: white;
 
-      background: none;
+      padding:
+        10px 16px;
+
+      border-radius: 999px;
+
+      backdrop-filter:
+        blur(14px);
 
       cursor: pointer;
 
-      opacity: .35;
+      font-size: 13px;
 
-      transition: .3s;
+      opacity: .65;
+
+      transition:
+        opacity .25s ease,
+        background .25s ease,
+        transform .25s ease;
     }
 
-    .back:hover {
+
+    .back-btn:hover {
       opacity: 1;
+
+      background:
+        rgba(255, 255, 255, .13);
+
+      transform:
+        translateX(-3px);
     }
 
 
-    /* ================================
-       手机适配
-    ================================= */
+    /* ==============================
+       MOBILE
+    ============================== */
 
-    @media(max-width:650px) {
+    @media(max-width: 650px) {
+
+      .topbar {
+        padding:
+          19px 20px;
+      }
+
+
+      .header {
+        top: 78px;
+      }
+
+
+      .music-area {
+        right: 18px;
+        top: 62px;
+      }
+
+
+      .music-btn {
+        width: 41px;
+        height: 41px;
+      }
+
 
       .app {
         padding:
-          70px 24px 100px;
+          115px 20px 130px;
       }
 
-      .seasons {
-        bottom: 30px;
 
-        width: 90%;
+      .season-nav {
+        bottom: 28px;
+
+        width: 95%;
 
         justify-content: center;
       }
 
+
       .season-btn {
         padding:
           9px 13px;
-
-        font-size: 12px;
       }
 
-      .finish {
-        right: 20px;
-        bottom: 82px;
+
+      .finish-btn {
+        right: 18px;
+
+        bottom: 75px;
       }
 
-      .music-btn {
+
+      .final-scroll {
+        padding:
+          100px 22px 85px;
+      }
+
+
+      .back-btn {
         top: 20px;
-        right: 20px;
-
-        width: 40px;
-        height: 40px;
-      }
-
-      .final-content {
-        width: 84vw;
+        left: 18px;
       }
 
     }
 
   </style>
+
 </head>
+
 
 
 <body>
 
-  <!-- 背景音乐 -->
 
-  <audio id="bgm" loop preload="auto">
+  <!-- ==========================
+       AUDIO
+  =========================== -->
+
+  <audio
+    id="bgm"
+    preload="auto"
+    loop
+  >
+
     <source
       src="./music/beijing-seasons.mp3"
-      type="audio/mpeg">
+      type="audio/mpeg"
+    >
+
   </audio>
 
 
-  <!-- 音乐按钮 -->
 
-  <button
-    class="music-btn"
-    id="musicBtn"
-    onclick="toggleMusic()"
-    title="播放 / 暂停背景音乐">
+  <!-- ==========================
+       TOP
+  =========================== -->
 
-    ♫
+  <div class="topbar">
 
-  </button>
+    <div class="brand">
+      BEIJING
+    </div>
+
+    <div class="signature-top">
+      KID
+    </div>
+
+  </div>
 
 
-  <!-- 背景 -->
+
+  <!-- ==========================
+       MUSIC BUTTON
+  =========================== -->
+
+  <div class="music-area">
+
+    <button
+      class="music-btn"
+      id="musicBtn"
+      title="播放背景音乐"
+    >
+      ♫
+    </button>
+
+    <div
+      class="music-status"
+      id="musicStatus"
+    >
+      点击播放背景音乐
+    </div>
+
+  </div>
+
+
+
+  <!-- ==========================
+       BACKGROUND
+  =========================== -->
 
   <div
     class="background"
-    id="background">
-  </div>
+    id="background"
+  ></div>
 
   <div class="overlay"></div>
 
 
-  <!-- ================================
-       主页面
-  ================================= -->
+
+  <!-- ==========================
+       FOUR SEASONS
+  =========================== -->
 
   <main class="app">
 
-    <div class="top">
+
+    <header class="header">
 
       <div class="small">
-        BEIJING · YEAR TWO
+        BEIJING · YEAR ONE
       </div>
 
       <h1>
-        在北京生活的第二年
+        在北京的第一年
       </h1>
 
-    </div>
+    </header>
+
 
 
     <section
       class="content"
-      id="content">
+      id="content"
+    >
 
       <div
         class="season-icon"
-        id="icon">
-
-        🌸
-
+        id="seasonIcon"
+      >
+        🍂
       </div>
 
 
       <div
         class="season-name"
-        id="seasonName">
-
-        春
-
+        id="seasonName"
+      >
+        秋
       </div>
 
 
       <div
         class="season-date"
-        id="seasonDate">
-
-        SPRING · BEIJING
-
+        id="seasonDate"
+      >
+        AUTUMN · ARRIVAL
       </div>
 
 
       <div
-        class="text"
-        id="seasonText">
+        class="season-text"
+        id="seasonText"
+      >
 
-        第一场风变暖的时候，
-        才发现北京也有很长的春天。
+        第一次来到北京的时候，
+        是秋天。
 
         <br><br>
 
-        路边重新长出绿色，
-        白天一点点变长。
+        天气开始变凉，
+        城市还完全陌生。
 
         <br>
 
-        很多事情也好像可以重新开始。
+        从一段已经很熟悉的生活里走出来，
+        又重新认识新的学校、新的路，
+        和新的日常。
+
+        <br><br>
+
+        那时候大概还不知道，
+
+        <br>
+
+        一年以后，
+        北京也会变成一个熟悉的地方。
 
       </div>
 
     </section>
 
 
-    <!-- 四季选择 -->
 
-    <div class="seasons">
+    <nav class="season-nav">
 
       <button
         class="season-btn active"
-        onclick="changeSeason('spring', this)">
-
-        春
-
-      </button>
-
-
-      <button
-        class="season-btn"
-        onclick="changeSeason('summer', this)">
-
-        夏
-
-      </button>
-
-
-      <button
-        class="season-btn"
-        onclick="changeSeason('autumn', this)">
-
+        data-season="autumn"
+      >
         秋
-
       </button>
-
 
       <button
         class="season-btn"
-        onclick="changeSeason('winter', this)">
-
+        data-season="winter"
+      >
         冬
-
       </button>
 
-    </div>
+      <button
+        class="season-btn"
+        data-season="spring"
+      >
+        春
+      </button>
+
+      <button
+        class="season-btn"
+        data-season="summer"
+      >
+        夏
+      </button>
+
+    </nav>
+
 
 
     <button
-      class="finish"
-      onclick="openFinal()">
-
-      走完这一年 →
-
+      class="finish-btn"
+      id="finishBtn"
+    >
+      查看这一年 →
     </button>
 
   </main>
 
 
 
-  <!-- ================================
-       最终页
-  ================================= -->
+  <!-- ==========================
+       FINAL PAGE
+  =========================== -->
 
   <section
     class="final-page"
-    id="finalPage">
+    id="finalPage"
+  >
 
 
     <button
-      class="back"
-      onclick="closeFinal()">
-
+      class="back-btn"
+      id="backBtn"
+    >
       ← 回到四季
-
     </button>
 
 
-    <div class="final-content">
 
-      <div class="final-small">
-        AFTER FOUR SEASONS
-      </div>
+    <div
+      class="final-scroll"
+      id="finalScroll"
+    >
 
+      <article class="final-content">
 
-      <div class="final-title">
 
-        至此，
+        <div class="final-small">
+          AFTER FOUR SEASONS
+        </div>
 
-        <br>
 
-        我已见过北京的一整个春夏秋冬。
+        <h2 class="final-title">
 
-      </div>
+          至此，
 
+          <br>
 
-      <div class="final-text">
+          我已见过北京的
+          一整个春夏秋冬。
 
-        来北京的时候，
+        </h2>
 
-        <br>
 
-        身上还带着很多上一段生活留下来的东西。
+        <div class="final-text">
 
-        <br><br>
+          去年秋天来到北京的时候，
 
-        一些习惯，
+          <br>
 
-        <br>
+          很多东西其实还留在上一段生活里。
 
-        一些熟悉的身份，
+          <br><br>
 
-        <br>
+          熟悉的环境，
 
-        一些曾经觉得很重要的热闹。
+          <br>
 
-        <br><br>
+          已经习惯的身份，
 
-        后来慢慢发现，
+          <br>
 
-        <br><br>
+          认识的人，
 
-        有些名字适合留在通讯录里，
+          <br>
 
-        <br>
+          以及那些曾经占据了很多注意力的事情。
 
-        有些故事适合留在过去，
+        </div>
 
-        <br>
 
-        有些事情也不需要再反复证明。
 
-        <br><br>
+        <div class="final-separator"></div>
 
-        真正重要的人，
 
-        <br>
 
-        不会因为生活换了一座城市就消失。
+        <div class="final-text">
 
-        <br><br>
+          从前总觉得，
 
-        其余的，
+          <br>
 
-        <br>
+          认识多少人，
+          做过多少事，
+          在什么位置，
+          好像都很重要。
 
-        好像也没有必要一直带着。
+          <br><br>
 
-      </div>
+          后来换了一座城市，
 
+          <br>
 
-      <div class="quote">
+          生活重新开始，
 
-        四季轮转。
+          <br>
 
-        <br>
+          才发现很多东西
+          并不需要一直带在身上。
 
-        旧页翻过，新章继续。
+          <br><br>
 
-      </div>
+          有的人自然还会联系，
 
+          <br>
 
-      <div class="final-text">
+          有的人偶尔出现在消息列表里，
 
-        以前做过的事，
+          <br>
 
-        <br>
+          还有很多名字，
+          大概就适合留在上一页。
 
-        认识过的人，
+        </div>
 
-        <br>
 
-        得到过的东西，
 
-        <br><br>
+        <div class="quote">
 
-        都是真的。
+          至此，
 
-        <br><br>
+          <br>
 
-        只是现在，
+          我已见过北京的
+          一整个春夏秋冬。
 
-        <br>
+        </div>
 
-        不需要再靠它们介绍自己了。
 
-        <br><br>
 
-        北京的第二年。
+        <div class="final-text">
 
-        <br><br>
+          北京也从一个
+          完全陌生的城市，
 
-        重新开始，
+          <br>
 
-        <br>
+          慢慢变成了每天醒来以后
+          要继续生活的地方。
 
-        也继续往前。
+          <br><br>
 
-      </div>
+          走过秋天，
 
+          <br>
 
-      <div class="signature">
+          见过冬天，
 
-        KID · Beijing
+          <br>
 
-      </div>
+          等到春天，
+
+          <br>
+
+          又过完夏天。
+
+          <br><br>
+
+          好像也终于可以确认，
+
+          <br>
+
+          上一段生活真的已经结束了。
+
+        </div>
+
+
+
+        <div class="final-separator"></div>
+
+
+
+        <div class="final-text">
+
+          从前那些做过的事
+          没有消失，
+
+          <br>
+
+          得到过的东西也没有失效。
+
+          <br><br>
+
+          它们只是慢慢从
+          “我是谁”
+
+          <br>
+
+          变成了
+
+          <br>
+
+          “我曾经做过什么”。
+
+          <br><br>
+
+          这样其实很好。
+
+        </div>
+
+
+
+        <div class="quote">
+
+          旧页不用撕掉。
+
+          <br>
+
+          翻过去就可以了。
+
+        </div>
+
+
+
+        <div class="final-text">
+
+          真正值得留下的人和事，
+
+          <br>
+
+          自然会继续出现在下一页。
+
+          <br><br>
+
+          至于剩下的，
+
+          <br>
+
+          就留给过去吧。
+
+          <br><br><br>
+
+          北京的第一年结束。
+
+          <br><br>
+
+          然后，
+
+          <br>
+
+          继续往前。
+
+        </div>
+
+
+
+        <div class="signature">
+          KID · Beijing
+        </div>
+
+
+      </article>
 
     </div>
 
@@ -877,76 +1263,11 @@
 
   <script>
 
-    /* ================================
-       四季内容
-    ================================= */
+    /* ==============================
+       SEASONS
+    ============================== */
 
     const seasons = {
-
-      spring: {
-
-        icon: "🌸",
-
-        name: "春",
-
-        date: "SPRING · BEIJING",
-
-        background:
-          "radial-gradient(circle at 22% 20%, rgba(255,210,220,.25), transparent 30%), linear-gradient(145deg,#526a62,#8b9b82 55%,#c9a6a6)",
-
-        text: `
-          第一场风变暖的时候，
-          才发现北京也有很长的春天。
-
-          <br><br>
-
-          路边重新长出绿色，
-          白天一点点变长。
-
-          <br>
-
-          很多事情也好像可以重新开始。
-        `
-
-      },
-
-
-      summer: {
-
-        icon: "🌿",
-
-        name: "夏",
-
-        date: "SUMMER · BEIJING",
-
-        background:
-          "radial-gradient(circle at 72% 18%, rgba(255,225,120,.25), transparent 27%), linear-gradient(145deg,#153c36,#275c50 55%,#7a8060)",
-
-        text: `
-          北京的夏天很亮。
-
-          <br><br>
-
-          傍晚很长，
-          树也长得很满。
-
-          <br>
-
-          有时候忙到很晚，
-          出门才发现天还没有完全黑。
-
-          <br><br>
-
-          日子好像也是这样，
-
-          <br>
-
-          一边往前赶，
-          一边慢慢变成新的样子。
-        `
-
-      },
-
 
       autumn: {
 
@@ -954,30 +1275,37 @@
 
         name: "秋",
 
-        date: "AUTUMN · BEIJING",
+        date:
+          "AUTUMN · ARRIVAL",
 
         background:
           "radial-gradient(circle at 25% 25%, rgba(255,195,100,.22), transparent 29%), linear-gradient(145deg,#554332,#8b6541 55%,#ad7d55)",
 
         text: `
-          秋天大概是北京最像北京的时候。
+
+          第一次来到北京的时候，
+          是秋天。
 
           <br><br>
 
-          风开始变凉，
-          天却格外高。
+          天气开始变凉，
+          城市还完全陌生。
 
           <br>
 
-          很多事情在这个时候突然清楚起来。
+          从一段已经很熟悉的生活里走出来，
+          又重新认识新的学校、新的路，
+          和新的日常。
 
           <br><br>
 
-          什么值得留下，
+          那时候大概还不知道，
 
           <br>
 
-          什么其实可以算了。
+          一年以后，
+          北京也会变成一个熟悉的地方。
+
         `
 
       },
@@ -989,34 +1317,135 @@
 
         name: "冬",
 
-        date: "WINTER · BEIJING",
+        date:
+          "WINTER · BEIJING",
 
         background:
           "radial-gradient(circle at 75% 20%, rgba(220,235,255,.18), transparent 28%), linear-gradient(145deg,#182632,#304454 55%,#657786)",
 
         text: `
-          然后又到了冬天。
+
+          然后是北京的第一个冬天。
 
           <br><br>
 
-          风还是很冷，
-          天还是黑得很早。
+          天黑得很早，
 
           <br>
 
-          只是第二次走进这样的冬天，
-
-          <br>
-
-          好像已经不像第一次那么陌生。
+          风也比想象中更有存在感。
 
           <br><br>
 
-          原来一座城市，
+          很多第一次，
 
           <br>
 
-          真的会慢慢变成生活。
+          第一次真正习惯学校，
+          第一次慢慢认路，
+          第一次发现北京也没有那么遥远。
+
+          <br><br>
+
+          日子就在这些
+          很普通的事情里慢慢过去。
+
+        `
+
+      },
+
+
+      spring: {
+
+        icon: "🌸",
+
+        name: "春",
+
+        date:
+          "SPRING · BEIJING",
+
+        background:
+          "radial-gradient(circle at 22% 20%, rgba(255,210,220,.25), transparent 30%), linear-gradient(145deg,#526a62,#8b9b82 55%,#c9a6a6)",
+
+        text: `
+
+          冬天过去以后，
+
+          <br>
+
+          北京重新有了颜色。
+
+          <br><br>
+
+          路边开始变绿，
+
+          <br>
+
+          白天一点点变长。
+
+          <br><br>
+
+          等到春天真正到来的时候，
+
+          <br>
+
+          很多去年秋天
+          还觉得陌生的东西，
+
+          <br>
+
+          已经变成了日常。
+
+        `
+
+      },
+
+
+      summer: {
+
+        icon: "🌿",
+
+        name: "夏",
+
+        date:
+          "SUMMER · ONE YEAR",
+
+        background:
+          "radial-gradient(circle at 72% 18%, rgba(255,225,120,.25), transparent 27%), linear-gradient(145deg,#153c36,#275c50 55%,#7a8060)",
+
+        text: `
+
+          最后到了夏天。
+
+          <br><br>
+
+          北京的白天很长，
+
+          <br>
+
+          树也长得很满。
+
+          <br><br>
+
+          某一天突然意识到，
+
+          <br>
+
+          从第一次来到这里算起，
+
+          <br>
+
+          已经快一年了。
+
+          <br><br>
+
+          秋冬春夏。
+
+          <br>
+
+          原来一个完整的四季
+          已经走完。
+
         `
 
       }
@@ -1024,267 +1453,440 @@
     };
 
 
-    /* ================================
-       四季切换
-    ================================= */
 
-    function changeSeason(season, button) {
-
-      const data = seasons[season];
-
-      const content =
-        document.getElementById("content");
+    const content =
+      document.getElementById(
+        "content"
+      );
 
 
-      content.classList.add("change");
+    const background =
+      document.getElementById(
+        "background"
+      );
 
 
-      document
-        .querySelectorAll(".season-btn")
-        .forEach(btn => {
-
-          btn.classList.remove("active");
-
-        });
+    const seasonButtons =
+      document.querySelectorAll(
+        ".season-btn"
+      );
 
 
-      button.classList.add("active");
+
+    seasonButtons.forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+
+          function () {
+
+            const season =
+              this.dataset.season;
+
+            const data =
+              seasons[season];
 
 
-      setTimeout(() => {
-
-        document
-          .getElementById("icon")
-          .innerHTML = data.icon;
+            content.classList.add(
+              "change"
+            );
 
 
-        document
-          .getElementById("seasonName")
-          .innerHTML = data.name;
+            seasonButtons.forEach(
+              btn => {
+
+                btn.classList.remove(
+                  "active"
+                );
+
+              }
+            );
 
 
-        document
-          .getElementById("seasonDate")
-          .innerHTML = data.date;
+            this.classList.add(
+              "active"
+            );
 
 
-        document
-          .getElementById("seasonText")
-          .innerHTML = data.text;
+            setTimeout(
+              () => {
+
+                document
+                  .getElementById(
+                    "seasonIcon"
+                  )
+                  .innerHTML =
+                    data.icon;
 
 
-        document
-          .getElementById("background")
-          .style.background =
-            data.background;
+                document
+                  .getElementById(
+                    "seasonName"
+                  )
+                  .innerHTML =
+                    data.name;
 
 
-        content
-          .classList
-          .remove("change");
-
-      }, 350);
-
-    }
-
-
-    /* ================================
-       最终页面
-    ================================= */
-
-    function openFinal() {
-
-      document
-        .getElementById("finalPage")
-        .classList
-        .add("active");
-
-    }
+                document
+                  .getElementById(
+                    "seasonDate"
+                  )
+                  .innerHTML =
+                    data.date;
 
 
-    function closeFinal() {
-
-      document
-        .getElementById("finalPage")
-        .classList
-        .remove("active");
-
-    }
+                document
+                  .getElementById(
+                    "seasonText"
+                  )
+                  .innerHTML =
+                    data.text;
 
 
-    /* ================================
-       音乐
-    ================================= */
-
-    const bgm =
-      document.getElementById("bgm");
-
-    const musicBtn =
-      document.getElementById("musicBtn");
+                background
+                  .style.background =
+                    data.background;
 
 
-    /* 背景音乐不要太响 */
+                content.classList.remove(
+                  "change"
+                );
 
-    bgm.volume = 0.30;
+              },
 
+              350
+            );
 
-    let musicStarted = false;
+          }
 
+        );
 
-    function setPlayingState() {
+      }
 
-      musicBtn
-        .classList
-        .add("playing");
-
-      musicBtn.innerHTML = "Ⅱ";
-
-      musicStarted = true;
-
-    }
+    );
 
 
-    function setPausedState() {
 
-      musicBtn
-        .classList
-        .remove("playing");
+    /* ==============================
+       FINAL PAGE
+    ============================== */
 
-      musicBtn.innerHTML = "♫";
+    const finalPage =
+      document.getElementById(
+        "finalPage"
+      );
 
-    }
+
+    const finalScroll =
+      document.getElementById(
+        "finalScroll"
+      );
 
 
-    async function toggleMusic() {
+    const finishBtn =
+      document.getElementById(
+        "finishBtn"
+      );
 
-      if (bgm.paused) {
 
-        try {
+    const backBtn =
+      document.getElementById(
+        "backBtn"
+      );
 
-          await bgm.play();
 
-          setPlayingState();
 
-        } catch (error) {
+    finishBtn.addEventListener(
+      "click",
 
-          console.log(
-            "Music playback was blocked.",
-            error
+      function () {
+
+        finalPage.classList.add(
+          "active"
+        );
+
+
+        finalScroll.scrollTop = 0;
+
+      }
+
+    );
+
+
+
+    backBtn.addEventListener(
+      "click",
+
+      function () {
+
+        finalPage.classList.remove(
+          "active"
+        );
+
+      }
+
+    );
+
+
+
+    /* ESC 也可以退出最终页 */
+
+    document.addEventListener(
+      "keydown",
+
+      function (event) {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          finalPage.classList.remove(
+            "active"
           );
 
         }
 
-      } else {
+      }
 
-        bgm.pause();
+    );
 
-        setPausedState();
+
+
+    /* ==============================
+       MUSIC
+    ============================== */
+
+    const bgm =
+      document.getElementById(
+        "bgm"
+      );
+
+
+    const musicBtn =
+      document.getElementById(
+        "musicBtn"
+      );
+
+
+    const musicStatus =
+      document.getElementById(
+        "musicStatus"
+      );
+
+
+    bgm.volume = 0.30;
+
+
+
+    function showMusicStatus(
+      text
+    ) {
+
+      musicStatus.textContent =
+        text;
+
+
+      musicStatus.classList.add(
+        "show"
+      );
+
+
+      clearTimeout(
+        window.musicStatusTimer
+      );
+
+
+      window.musicStatusTimer =
+        setTimeout(
+          () => {
+
+            musicStatus
+              .classList
+              .remove(
+                "show"
+              );
+
+          },
+
+          2600
+        );
+
+    }
+
+
+
+    function updateMusicButton() {
+
+      if (
+        bgm.paused
+      ) {
+
+        musicBtn.textContent =
+          "♫";
+
+
+        musicBtn.classList.remove(
+          "playing"
+        );
+
+
+        musicBtn.title =
+          "播放背景音乐";
+
+      }
+
+      else {
+
+        musicBtn.textContent =
+          "Ⅱ";
+
+
+        musicBtn.classList.add(
+          "playing"
+        );
+
+
+        musicBtn.title =
+          "暂停背景音乐";
 
       }
 
     }
 
 
-    /* 页面加载后先尝试自动播放 */
 
-    window.addEventListener(
-      "load",
-      async () => {
-
-        try {
-
-          await bgm.play();
-
-          setPlayingState();
-
-        } catch (error) {
-
-          /*
-            很多浏览器会禁止网页
-            未经用户操作直接播放有声音乐。
-            所以这里失败是正常现象。
-          */
-
-          setPausedState();
-
-        }
-
-      }
-    );
-
-
-    /*
-      如果自动播放被浏览器拦截，
-      用户第一次点击页面任何位置时，
-      自动开始播放。
-    */
-
-    document.addEventListener(
+    musicBtn.addEventListener(
       "click",
-      async function startMusic(event) {
 
-        /*
-          如果点的是右上角音乐按钮，
-          交给 toggleMusic 自己处理。
-        */
+      async function (event) {
+
+        event.stopPropagation();
+
 
         if (
-          event.target.closest("#musicBtn")
+          bgm.paused
         ) {
-          return;
-        }
-
-
-        if (!musicStarted) {
 
           try {
 
             await bgm.play();
 
-            setPlayingState();
 
-          } catch (error) {
+            updateMusicButton();
 
-            console.log(
-              "Music playback failed.",
+
+            showMusicStatus(
+              "背景音乐已播放"
+            );
+
+          }
+
+          catch (error) {
+
+            console.error(
               error
+            );
+
+
+            showMusicStatus(
+              "无法播放：请检查 music/beijing-seasons.mp3 是否存在"
             );
 
           }
 
         }
 
-      },
-      {
-        once: true
-      }
-    );
+        else {
+
+          bgm.pause();
 
 
-    /*
-      播放状态同步
-    */
+          updateMusicButton();
 
-    bgm.addEventListener(
-      "pause",
-      () => {
 
-        setPausedState();
+          showMusicStatus(
+            "背景音乐已暂停"
+          );
+
+        }
 
       }
+
     );
+
 
 
     bgm.addEventListener(
       "play",
-      () => {
 
-        setPlayingState();
+      updateMusicButton
+    );
+
+
+    bgm.addEventListener(
+      "pause",
+
+      updateMusicButton
+    );
+
+
+
+    /* 文件根本加载不到时直接提示 */
+
+    bgm.addEventListener(
+      "error",
+
+      function () {
+
+        console.error(
+          "Background music file cannot be loaded."
+        );
+
+
+        showMusicStatus(
+          "音乐文件未找到，请检查文件名和路径"
+        );
 
       }
+
+    );
+
+
+
+    /* 页面加载时尝试自动播放 */
+
+    window.addEventListener(
+      "load",
+
+      async function () {
+
+        try {
+
+          await bgm.play();
+
+
+          updateMusicButton();
+
+        }
+
+        catch (error) {
+
+          /*
+          浏览器阻止自动播放属于正常情况。
+          用户仍然可以点击右上角 ♫ 播放。
+          */
+
+          updateMusicButton();
+
+        }
+
+      }
+
     );
 
   </script>
+
 
 </body>
 </html>
