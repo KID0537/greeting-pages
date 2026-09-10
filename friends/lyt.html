@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>恭喜网友开学 · 上财</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255,255,255,.14), transparent 28%),
+        radial-gradient(circle at 85% 30%, rgba(255,215,160,.12), transparent 24%),
+        linear-gradient(135deg, #5d0015, #8d1738 48%, #c26d80);
+
+      color: white;
+      padding: 38px 20px 60px;
+    }
+
+    .container {
+      width: min(900px, 100%);
+      margin: 0 auto;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 55px 35px 45px;
+
+      border-radius: 30px;
+
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+
+      backdrop-filter: blur(18px);
+
+      box-shadow: 0 30px 80px rgba(0,0,0,.28);
+    }
+
+    .icon {
+      font-size: 72px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      50% {
+        transform: translateY(-9px) rotate(-3deg);
+      }
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 16px;
+
+      padding: 8px 16px;
+      border-radius: 999px;
+
+      background: rgba(255,255,255,.15);
+
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      margin: 22px 0 10px;
+
+      font-size: clamp(42px, 7vw, 74px);
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      opacity: .88;
+      margin-bottom: 12px;
+    }
+
+    .nickname {
+      font-size: 15px;
+      opacity: .7;
+    }
+
+    .section {
+      margin-top: 24px;
+      padding: 30px;
+
+      border-radius: 24px;
+
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+
+      backdrop-filter: blur(14px);
+
+      box-shadow: 0 18px 45px rgba(0,0,0,.16);
+    }
+
+    .section h2 {
+      margin-top: 0;
+      margin-bottom: 18px;
+
+      font-size: 26px;
+    }
+
+    .text {
+      line-height: 2;
+      font-size: 17px;
+      opacity: .94;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .mini-card {
+      padding: 22px;
+
+      border-radius: 18px;
+
+      background: rgba(255,255,255,.10);
+
+      line-height: 1.8;
+    }
+
+    .mini-card .emoji {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 17px;
+    }
+
+    .status {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      margin-top: 18px;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      padding: 14px 18px;
+
+      background: rgba(255,255,255,.09);
+      border-radius: 14px;
+    }
+
+    .status-name {
+      opacity: .78;
+    }
+
+    .status-value {
+      text-align: right;
+      font-weight: 600;
+    }
+
+    .coffee-box {
+      margin-top: 20px;
+      text-align: center;
+
+      padding: 25px;
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(82, 42, 25, .45),
+          rgba(255,255,255,.10)
+        );
+    }
+
+    .coffee-box .big {
+      font-size: 44px;
+      margin-bottom: 10px;
+    }
+
+    .button-wrap {
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    button {
+      border: none;
+
+      padding: 14px 25px;
+
+      border-radius: 999px;
+
+      background: white;
+      color: #8b2041;
+
+      font-size: 16px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+
+      transition: .25s;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+    }
+
+    .hidden {
+      margin-top: 20px;
+
+      padding: 20px;
+
+      border-radius: 16px;
+
+      background: rgba(255,255,255,.10);
+
+      line-height: 1.9;
+
+      opacity: 0;
+      transform: translateY(8px);
+
+      transition: .4s;
+    }
+
+    .hidden.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+
+      font-size: 14px;
+      opacity: .7;
+    }
+
+    @media (max-width: 650px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 42px 24px;
+      }
+
+      .section {
+        padding: 24px 20px;
+      }
+
+      .status-item {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .status-value {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <section class="hero">
+
+      <div class="icon">🎓☕</div>
+
+      <div class="badge">
+        SHANGHAI UNIVERSITY OF FINANCE AND ECONOMICS
+      </div>
+
+      <h1>
+        恭喜网友开学！
+      </h1>
+
+      <div class="subtitle">
+        上海新地图已解锁 · 上财副本正式开启
+      </div>
+
+      <div class="nickname">
+        特别鸣谢：咖啡菠萝蛋糕同学
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <h2>
+        📍 开学第一周：难度似乎调高了一点
+      </h2>
+
+      <div class="text">
+
+        按正常剧情来说，
+
+        <br>
+
+        刚到上海、刚进新学校，
+        应该是“新城市！新生活！新朋友！”。
+
+        <br><br>
+
+        但咖啡菠萝蛋糕同学的实际开局好像是：
+
+        <br><br>
+
+        新城市 ✅  
+        新学校 ✅  
+        新朋友……加载中 ⏳  
+        想家 ✅  
+        辅导员和舍友体验暂不评分 ✅  
+        结膜炎随机事件 ✅  
+        医院地图提前解锁 ✅  
+        单眼纱布限定皮肤 ✅
+
+        <br><br>
+
+        怎么说呢，
+
+        别人大学开学先领校园卡，
+        你先领了一套医院体验卡。
+
+        <br><br>
+
+        属实是把“适应新环境”
+        玩成了困难模式。
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <h2>
+        🏙️ 上海生活加载进度
+      </h2>
+
+      <div class="status">
+
+        <div class="status-item">
+          <div class="status-name">新城市适应度</div>
+          <div class="status-value">▰▰▰▱▱ 继续加载中</div>
+        </div>
+
+        <div class="status-item">
+          <div class="status-name">学校熟悉度</div>
+          <div class="status-value">正在缓慢探索地图</div>
+        </div>
+
+        <div class="status-item">
+          <div class="status-name">想家指数</div>
+          <div class="status-value">偏高，但合理</div>
+        </div>
+
+        <div class="status-item">
+          <div class="status-name">今日成就</div>
+          <div class="status-value">✅ 单眼模式完成逛街</div>
+        </div>
+
+        <div class="status-item">
+          <div class="status-name">精神补给系统</div>
+          <div class="status-value">☕ 已发现四家咖啡店</div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <h2>
+        ☕ 好消息：至少咖啡资源十分充足
+      </h2>
+
+      <div class="coffee-box">
+
+        <div class="big">
+          ☕ ☕ ☕ ☕
+        </div>
+
+        <div class="text">
+
+          据可靠情报，
+
+          <br>
+
+          学校里居然有四家咖啡店。
+
+          <br><br>
+
+          所以虽然目前：
+
+          <br>
+
+          人际关系尚未加载完成，  
+          上海生活还没完全适应，  
+          一只眼睛暂时也处于“维护状态”，
+
+          <br><br>
+
+          但是至少咖啡供应链稳定。
+
+          <br><br>
+
+          对咖啡菠萝蛋糕来说，
+
+          <strong>
+            这大概属于校方提供的核心生存保障。
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <h2>
+        🎮 新手村提示
+      </h2>
+
+      <div class="grid">
+
+        <div class="mini-card">
+          <div class="emoji">🛏️</div>
+          <strong>关于想家</strong>
+          刚换城市会想家很正常。
+          上海又不会跑，家也不会跑，
+          可以慢慢适应。
+        </div>
+
+        <div class="mini-card">
+          <div class="emoji">👥</div>
+          <strong>关于新同学</strong>
+          开学第一批遇到的人，
+          不一定就是之后最合拍的人。
+          先观察，不急着给整个学校判死刑。
+        </div>
+
+        <div class="mini-card">
+          <div class="emoji">👁️</div>
+          <strong>关于这只倒霉眼睛</strong>
+          已经疼了这么久，
+          现在请安心进入恢复阶段。
+          单眼限定皮肤差不多可以下线了。
+        </div>
+
+        <div class="mini-card">
+          <div class="emoji">🗺️</div>
+          <strong>关于上海</strong>
+          才刚来而已。
+          今晚都已经出去逛街了，
+          说明地图探索功能正在逐步恢复。
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="section">
+
+      <h2>
+        🌟 所以，正式祝贺一下
+      </h2>
+
+      <div class="text">
+
+        恭喜咖啡菠萝蛋糕同学，
+
+        <br>
+
+        成功来到上海，
+        成功入学上财，
+        成功熬过这段多少有点离谱的开局。
+
+        <br><br>
+
+        目前遇到的人不一定很合适，
+        目前的生活也不一定已经顺手，
+        甚至目前的眼睛还不太配合。
+
+        <br><br>
+
+        但反正学校才刚开，
+
+        <br>
+
+        后面的剧情还长着呢。
+
+        <br><br>
+
+        希望接下来可以：
+
+        <br>
+
+        少跑医院，
+        多逛上海；
+
+        <br>
+
+        少遇到奇怪的人，
+        多遇到正常网友；
+
+        <br>
+
+        少一点想家到emo，
+        多一点“上海好像也还行”。
+
+        <br><br>
+
+        以及最重要的——
+
+        <br>
+
+        <strong>
+          四家咖啡店，请逐一完成实地调研。
+        </strong>
+
+      </div>
+
+      <div class="button-wrap">
+
+        <button onclick="showMessage()">
+          点一下领取开学补偿 🎁
+        </button>
+
+        <div id="secret" class="hidden">
+
+          🎁 开学补偿已到账：
+
+          <br><br>
+
+          +1 新城市  
+          +1 新学校  
+          +4 咖啡店  
+          +∞ 后续随机剧情
+
+          <br><br>
+
+          至于前面那些倒霉事，
+
+          <br>
+
+          就先统一归类为：
+
+          <strong>“新手教程设计得不太合理。”</strong>
+
+          <br><br>
+
+          后面应该会好玩一点。
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <div class="footer">
+
+      Made for 咖啡菠萝蛋糕 ·
+      上海新生活测试版 v1.0 ☕
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    function showMessage() {
+
+      document
+        .getElementById("secret")
+        .classList
+        .toggle("show");
+
+    }
+
+  </script>
+
+</body>
+</html>
