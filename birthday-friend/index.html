@@ -3,10 +3,244 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday</title>
+  <title>Happy Birthday 🎂</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      color: white;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.12), transparent 25%),
+        linear-gradient(135deg, #6f5bd3, #b66bd4, #f29ab2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.2;
+        transform: scale(0.8);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.4);
+      }
+    }
+
+    .card {
+      width: min(760px, 100%);
+      padding: 55px 45px;
+      border-radius: 28px;
+
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(18px);
+
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.35);
+
+      text-align: center;
+
+      animation: appear 1.2s ease;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .emoji {
+      font-size: 72px;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 1.1;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      text-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .subtitle {
+      font-size: 19px;
+      opacity: 0.88;
+      margin-bottom: 38px;
+      letter-spacing: 1px;
+    }
+
+    .message {
+      background: rgba(255,255,255,0.13);
+      border-radius: 20px;
+      padding: 28px;
+
+      font-size: 18px;
+      line-height: 2;
+      text-align: left;
+      margin-bottom: 35px;
+    }
+
+    .signature {
+      margin-top: 22px;
+      text-align: right;
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    button {
+      border: none;
+      padding: 14px 28px;
+      border-radius: 999px;
+
+      background: white;
+      color: #9c5dc1;
+
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+      transition: 0.25s;
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .hidden-message {
+      margin-top: 24px;
+      font-size: 18px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: 0.5s;
+    }
+
+    .hidden-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 40px 24px;
+      }
+
+      .message {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>生日快乐 🎂</h1>
-  <p>这是一个测试页面。</p>
+
+  <div class="stars">
+    <div class="star" style="left:10%; top:15%; animation-delay:0s;"></div>
+    <div class="star" style="left:20%; top:70%; animation-delay:1s;"></div>
+    <div class="star" style="left:35%; top:30%; animation-delay:2s;"></div>
+    <div class="star" style="left:52%; top:12%; animation-delay:.5s;"></div>
+    <div class="star" style="left:67%; top:65%; animation-delay:1.5s;"></div>
+    <div class="star" style="left:80%; top:20%; animation-delay:2.5s;"></div>
+    <div class="star" style="left:90%; top:78%; animation-delay:.8s;"></div>
+  </div>
+
+  <main class="card">
+
+    <div class="emoji">🎂</div>
+
+    <h1>Happy Birthday</h1>
+
+    <div class="subtitle">
+      To someone very special ✨
+    </div>
+
+    <div class="message">
+      今天是属于你的特别一天。
+
+      <br><br>
+
+      希望新的一岁里，
+      你依然可以去做自己真正喜欢的事情，
+      遇见值得期待的人和事，
+      也拥有足够多平静、自由和开心的时刻。
+
+      <br><br>
+
+      愿所有认真生活的瞬间，
+      最后都会变成值得珍藏的回忆。
+
+      <div class="signature">
+        —— From KID 🌙
+      </div>
+    </div>
+
+    <button onclick="showMessage()">
+      点一下，还有一句话 🎁
+    </button>
+
+    <div id="secret" class="hidden-message">
+      ✨ 新的一岁，也请继续闪闪发光。
+    </div>
+
+  </main>
+
+  <script>
+    function showMessage() {
+      document
+        .getElementById("secret")
+        .classList.add("show");
+    }
+  </script>
+
 </body>
 </html>
