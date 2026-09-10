@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>北京 · 第二年</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  font-family:
+    "PingFang SC",
+    "Microsoft YaHei",
+    sans-serif;
+
+  color:white;
+  overflow:hidden;
+
+  background:#18202b;
+
+  transition:background 1s ease;
+}
+
+/* ================================
+   整体背景
+================================ */
+
+.background{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+
+  transition:
+    background 1s ease,
+    opacity 1s ease;
+
+  background:
+    radial-gradient(circle at 20% 20%,
+      rgba(255,255,255,.10),
+      transparent 30%),
+    linear-gradient(145deg,#18202b,#26374b);
+}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.05),
+      rgba(0,0,0,.35)
+    );
+}
+
+
+/* ================================
+   页面主体
+================================ */
+
+.app{
+  width:100vw;
+  height:100vh;
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:32px 24px;
+}
+
+
+/* ================================
+   顶部
+================================ */
+
+.top{
+  position:absolute;
+
+  top:32px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:90%;
+
+  text-align:center;
+}
+
+.small{
+  font-size:11px;
+
+  letter-spacing:5px;
+
+  opacity:.45;
+}
+
+.top h1{
+  margin-top:10px;
+
+  font-size:
+    clamp(26px,4vw,40px);
+
+  font-weight:500;
+
+  letter-spacing:2px;
+}
+
+
+/* ================================
+   中央文字
+================================ */
+
+.content{
+  width:min(720px,92vw);
+
+  text-align:center;
+
+  opacity:1;
+
+  transition:
+    opacity .35s ease,
+    transform .35s ease;
+}
+
+.content.change{
+  opacity:0;
+
+  transform:
+    translateY(10px);
+}
+
+.season-icon{
+  font-size:55px;
+
+  margin-bottom:20px;
+}
+
+.season-name{
+  font-family:serif;
+
+  font-size:
+    clamp(52px,9vw,90px);
+
+  font-weight:400;
+
+  letter-spacing:8px;
+
+  margin-bottom:17px;
+}
+
+.season-date{
+  font-size:12px;
+
+  letter-spacing:3px;
+
+  opacity:.45;
+
+  margin-bottom:32px;
+}
+
+.text{
+  font-family:
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size:
+    clamp(17px,2vw,20px);
+
+  line-height:2.15;
+
+  letter-spacing:.5px;
+
+  opacity:.9;
+}
+
+
+/* ================================
+   四季按钮
+================================ */
+
+.seasons{
+  position:absolute;
+
+  bottom:48px;
+
+  display:flex;
+
+  gap:12px;
+}
+
+.season-btn{
+  border:1px solid
+    rgba(255,255,255,.18);
+
+  background:
+    rgba(255,255,255,.07);
+
+  color:white;
+
+  padding:
+    11px 18px;
+
+  border-radius:999px;
+
+  cursor:pointer;
+
+  backdrop-filter:blur(12px);
+
+  font-size:13px;
+
+  opacity:.6;
+
+  transition:.3s;
+}
+
+.season-btn:hover,
+.season-btn.active{
+  opacity:1;
+
+  transform:
+    translateY(-3px);
+
+  background:
+    rgba(255,255,255,.16);
+
+  border-color:
+    rgba(255,255,255,.35);
+}
+
+
+/* ================================
+   最后一页按钮
+================================ */
+
+.finish{
+  position:absolute;
+
+  right:35px;
+  bottom:45px;
+
+  border:none;
+
+  background:none;
+
+  color:white;
+
+  opacity:.38;
+
+  cursor:pointer;
+
+  font-size:13px;
+
+  transition:.3s;
+}
+
+.finish:hover{
+  opacity:1;
+}
+
+
+/* ================================
+   FINAL PAGE
+================================ */
+
+.final-page{
+  position:fixed;
+
+  inset:0;
+
+  z-index:20;
+
+  display:flex;
+
+  justify-content:center;
+  align-items:center;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(215,190,145,.12),
+      transparent 30%
+    ),
+    linear-gradient(
+      160deg,
+      #111820,
+      #182635 60%,
+      #10161d
+    );
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:
+    opacity .8s ease;
+}
+
+.final-page.active{
+  opacity:1;
+
+  pointer-events:auto;
+}
+
+.final-content{
+  width:min(720px,86vw);
+
+  text-align:center;
+
+  animation:
+    rise .9s ease;
+}
+
+@keyframes rise{
+  from{
+    opacity:0;
+    transform:
+      translateY(20px);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translateY(0);
+  }
+}
+
+.final-small{
+  font-size:11px;
+
+  letter-spacing:5px;
+
+  opacity:.35;
+
+  margin-bottom:25px;
+}
+
+.final-title{
+  font-family:
+    "Songti SC",
+    serif;
+
+  font-size:
+    clamp(34px,6vw,58px);
+
+  font-weight:400;
+
+  line-height:1.5;
+
+  margin-bottom:38px;
+}
+
+.final-text{
+  font-family:
+    "Songti SC",
+    serif;
+
+  font-size:
+    clamp(16px,2vw,19px);
+
+  line-height:2.2;
+
+  opacity:.72;
+}
+
+.quote{
+  margin:
+    48px 0 28px;
+
+  font-family:
+    "Songti SC",
+    serif;
+
+  font-size:
+    clamp(21px,3vw,28px);
+
+  letter-spacing:2px;
+
+  color:#e5d3ae;
+}
+
+.signature{
+  margin-top:45px;
+
+  text-align:right;
+
+  opacity:.5;
+
+  font-size:14px;
+}
+
+.back{
+  position:absolute;
+
+  left:30px;
+  top:30px;
+
+  border:none;
+
+  color:white;
+
+  background:none;
+
+  cursor:pointer;
+
+  opacity:.35;
+
+  transition:.3s;
+}
+
+.back:hover{
+  opacity:1;
+}
+
+
+/* ================================
+   手机
+================================ */
+
+@media(max-width:650px){
+
+  .app{
+    padding:
+      70px 24px 100px;
+  }
+
+  .seasons{
+    bottom:30px;
+
+    width:90%;
+
+    justify-content:center;
+  }
+
+  .season-btn{
+    padding:
+      9px 13px;
+
+    font-size:12px;
+  }
+
+  .finish{
+    right:20px;
+    bottom:82px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div
+  class="background"
+  id="background">
+</div>
+
+<div class="overlay"></div>
+
+
+<main class="app">
+
+  <div class="top">
+
+    <div class="small">
+      BEIJING · YEAR TWO
+    </div>
+
+    <h1>
+      在北京生活的第二年
+    </h1>
+
+  </div>
+
+
+  <section
+    class="content"
+    id="content">
+
+    <div
+      class="season-icon"
+      id="icon">
+      🌸
+    </div>
+
+    <div
+      class="season-name"
+      id="seasonName">
+      春
+    </div>
+
+    <div
+      class="season-date"
+      id="seasonDate">
+      SPRING · BEIJING
+    </div>
+
+    <div
+      class="text"
+      id="seasonText">
+
+      第一场风变暖的时候，
+      才发现北京也有很长的春天。
+
+      <br><br>
+
+      路边重新长出绿色，
+      白天一点点变长。
+
+      <br>
+
+      很多事情也好像可以重新开始。
+
+    </div>
+
+  </section>
+
+
+  <div class="seasons">
+
+    <button
+      class="season-btn active"
+      onclick="changeSeason('spring',this)">
+      春
+    </button>
+
+    <button
+      class="season-btn"
+      onclick="changeSeason('summer',this)">
+      夏
+    </button>
+
+    <button
+      class="season-btn"
+      onclick="changeSeason('autumn',this)">
+      秋
+    </button>
+
+    <button
+      class="season-btn"
+      onclick="changeSeason('winter',this)">
+      冬
+    </button>
+
+  </div>
+
+
+  <button
+    class="finish"
+    onclick="openFinal()">
+
+    走完这一年 →
+
+  </button>
+
+</main>
+
+
+
+<!-- 最终页 -->
+
+<section
+  class="final-page"
+  id="finalPage">
+
+  <button
+    class="back"
+    onclick="closeFinal()">
+
+    ← 回到四季
+
+  </button>
+
+
+  <div class="final-content">
+
+    <div class="final-small">
+      AFTER FOUR SEASONS
+    </div>
+
+    <div class="final-title">
+      至此，<br>
+      我已见过北京的一整个春夏秋冬。
+    </div>
+
+
+    <div class="final-text">
+
+      来北京的时候，
+      身上还带着很多上一段生活留下来的东西。
+
+      <br><br>
+
+      一些习惯，
+      一些熟悉的身份，
+      一些曾经觉得很重要的热闹。
+
+      <br><br>
+
+      后来慢慢发现，
+
+      <br>
+
+      有些名字适合留在通讯录里，
+      有些故事适合留在过去，
+      有些事情也不需要再反复证明。
+
+      <br><br>
+
+      真正重要的人，
+      不会因为生活换了一座城市就消失。
+
+      <br>
+
+      其余的，
+      好像也没有必要一直带着。
+
+    </div>
+
+
+    <div class="quote">
+
+      四季轮转。<br>
+      旧页翻过，新章继续。
+
+    </div>
+
+
+    <div class="final-text">
+
+      以前做过的事，
+      认识过的人，
+      得到过的东西，
+
+      <br>
+
+      都是真的。
+
+      <br><br>
+
+      只是现在，
+      不需要再靠它们介绍自己了。
+
+      <br><br>
+
+      北京的第二年。
+
+      <br>
+
+      重新开始，
+      也继续往前。
+
+    </div>
+
+
+    <div class="signature">
+      KID · Beijing
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<script>
+
+const seasons={
+
+spring:{
+  icon:"🌸",
+
+  name:"春",
+
+  date:"SPRING · BEIJING",
+
+  background:
+  "radial-gradient(circle at 22% 20%,rgba(255,210,220,.25),transparent 30%),linear-gradient(145deg,#526a62,#8b9b82 55%,#c9a6a6)",
+
+  text:`
+  第一场风变暖的时候，
+  才发现北京也有很长的春天。
+
+  <br><br>
+
+  路边重新长出绿色，
+  白天一点点变长。
+
+  <br>
+
+  很多事情也好像可以重新开始。
+  `
+},
+
+
+summer:{
+  icon:"🌿",
+
+  name:"夏",
+
+  date:"SUMMER · BEIJING",
+
+  background:
+  "radial-gradient(circle at 72% 18%,rgba(255,225,120,.25),transparent 27%),linear-gradient(145deg,#153c36,#275c50 55%,#7a8060)",
+
+  text:`
+  北京的夏天很亮。
+
+  <br><br>
+
+  傍晚很长，
+  树也长得很满。
+
+  <br>
+
+  有时候忙到很晚，
+  出门才发现天还没有完全黑。
+
+  <br><br>
+
+  日子好像也是这样，
+  一边往前赶，
+  一边慢慢变成新的样子。
+  `
+},
+
+
+autumn:{
+  icon:"🍂",
+
+  name:"秋",
+
+  date:"AUTUMN · BEIJING",
+
+  background:
+  "radial-gradient(circle at 25% 25%,rgba(255,195,100,.22),transparent 29%),linear-gradient(145deg,#554332,#8b6541 55%,#ad7d55)",
+
+  text:`
+  秋天大概是北京最像北京的时候。
+
+  <br><br>
+
+  风开始变凉，
+  天却格外高。
+
+  <br>
+
+  很多事情在这个时候突然清楚起来。
+
+  <br><br>
+
+  什么值得留下，
+  什么其实可以算了。
+  `
+},
+
+
+winter:{
+  icon:"❄️",
+
+  name:"冬",
+
+  date:"WINTER · BEIJING",
+
+  background:
+  "radial-gradient(circle at 75% 20%,rgba(220,235,255,.18),transparent 28%),linear-gradient(145deg,#182632,#304454 55%,#657786)",
+
+  text:`
+  然后又到了冬天。
+
+  <br><br>
+
+  风还是很冷，
+  天还是黑得很早。
+
+  <br>
+
+  只是第二次走进这样的冬天，
+  好像已经不像第一次那么陌生。
+
+  <br><br>
+
+  原来一座城市，
+  真的会慢慢变成生活。
+  `
+}
+
+};
+
+
+
+function changeSeason(season,button){
+
+  const data=seasons[season];
+
+  const content=
+    document.getElementById("content");
+
+  content.classList.add("change");
+
+  document
+    .querySelectorAll(".season-btn")
+    .forEach(btn=>
+      btn.classList.remove("active")
+    );
+
+  button.classList.add("active");
+
+
+  setTimeout(()=>{
+
+    document
+      .getElementById("icon")
+      .innerHTML=data.icon;
+
+    document
+      .getElementById("seasonName")
+      .innerHTML=data.name;
+
+    document
+      .getElementById("seasonDate")
+      .innerHTML=data.date;
+
+    document
+      .getElementById("seasonText")
+      .innerHTML=data.text;
+
+    document
+      .getElementById("background")
+      .style.background=data.background;
+
+    content.classList.remove("change");
+
+  },350);
+
+}
+
+
+
+function openFinal(){
+
+  document
+    .getElementById("finalPage")
+    .classList
+    .add("active");
+
+}
+
+
+function closeFinal(){
+
+  document
+    .getElementById("finalPage")
+    .classList
+    .remove("active");
+
+}
+
+</script>
+
+</body>
+</html>
