@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>恭喜开学 · 上财</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.16), transparent 30%),
+        linear-gradient(135deg, #720018, #a8002b 55%, #d98699);
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 30px;
+    }
+
+    .card {
+      width: min(800px, 100%);
+      padding: 55px 42px;
+
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25);
+
+      border-radius: 28px;
+      backdrop-filter: blur(18px);
+
+      box-shadow: 0 30px 80px rgba(0,0,0,.28);
+
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 72px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .badge {
+      display: inline-block;
+
+      margin-top: 15px;
+      padding: 8px 15px;
+
+      border-radius: 999px;
+
+      background: rgba(255,255,255,.17);
+
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      margin: 22px 0 10px;
+
+      font-size: clamp(42px, 7vw, 76px);
+    }
+
+    .subtitle {
+      font-size: 20px;
+      opacity: .9;
+      margin-bottom: 30px;
+    }
+
+    .line {
+      width: 70px;
+      height: 3px;
+
+      margin: 0 auto 28px;
+
+      background: #f4d47b;
+      border-radius: 10px;
+    }
+
+    .message {
+      padding: 26px;
+
+      border-radius: 20px;
+
+      background: rgba(255,255,255,.10);
+
+      text-align: left;
+
+      line-height: 2;
+      font-size: 18px;
+    }
+
+    .footer {
+      margin-top: 28px;
+
+      opacity: .8;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="card">
+
+    <div class="icon">🎓</div>
+
+    <div class="badge">
+      SHANGHAI UNIVERSITY OF FINANCE AND ECONOMICS
+    </div>
+
+    <h1>恭喜开学！</h1>
+
+    <div class="subtitle">
+      上财新篇章，正式开启 ✨
+    </div>
+
+    <div class="line"></div>
+
+    <div class="message">
+
+      新学期，新的城市节奏，
+      新的课堂与朋友，
+      也会有新的挑战和惊喜。
+
+      <br><br>
+
+      愿你在上财的日子里，
+      既能认真奔跑，也能从容生活。
+
+      <br><br>
+
+      愿每一次努力都有回声，
+      每一个选择，
+      都更靠近自己真正想去的地方。
+
+      <br><br>
+
+      开学快乐，前程似锦。📚🌟
+
+    </div>
+
+    <div class="footer">
+      From a friend who is cheering for you.
+    </div>
+
+  </main>
+
+</body>
+</html>
