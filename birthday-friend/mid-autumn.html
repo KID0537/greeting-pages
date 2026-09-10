@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>中秋快乐</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+
+      background:
+        radial-gradient(circle at 72% 25%, #fff7c7 0 7%, transparent 8%),
+        radial-gradient(circle at 72% 25%, rgba(255,235,150,.35), transparent 22%),
+        linear-gradient(180deg, #09142d, #162a50 60%, #304c6d);
+
+      color: #fff;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 30px;
+
+      overflow: hidden;
+    }
+
+    .moon {
+      position: fixed;
+
+      right: 12%;
+      top: 10%;
+
+      width: 150px;
+      height: 150px;
+
+      background: #fff3bd;
+
+      border-radius: 50%;
+
+      box-shadow:
+        0 0 40px rgba(255,240,170,.8),
+        0 0 100px rgba(255,240,170,.35);
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+
+      width: min(760px, 100%);
+
+      padding: 55px 42px;
+
+      background: rgba(20,35,65,.55);
+
+      border: 1px solid rgba(255,255,255,.18);
+
+      backdrop-filter: blur(18px);
+
+      border-radius: 28px;
+
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+    }
+
+    .small {
+      color: #e5cf95;
+
+      letter-spacing: 4px;
+
+      font-size: 14px;
+    }
+
+    h1 {
+      margin: 15px 0;
+
+      font-family: serif;
+
+      font-size: clamp(48px, 8vw, 82px);
+
+      color: #fff2c3;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      opacity: .85;
+      margin-bottom: 30px;
+    }
+
+    .message {
+      margin-top: 25px;
+
+      padding: 26px;
+
+      background: rgba(255,255,255,.08);
+
+      border-radius: 18px;
+
+      line-height: 2.1;
+
+      font-size: 18px;
+    }
+
+    .rabbit {
+      margin-top: 30px;
+
+      font-size: 48px;
+
+      text-align: center;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+
+      pointer-events: none;
+    }
+
+    .stars span {
+      position: absolute;
+
+      width: 3px;
+      height: 3px;
+
+      background: white;
+
+      border-radius: 50%;
+
+      opacity: .7;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="moon"></div>
+
+  <div class="stars">
+    <span style="left:15%;top:20%"></span>
+    <span style="left:30%;top:12%"></span>
+    <span style="left:45%;top:30%"></span>
+    <span style="left:60%;top:18%"></span>
+    <span style="left:85%;top:40%"></span>
+    <span style="left:25%;top:65%"></span>
+    <span style="left:75%;top:75%"></span>
+  </div>
+
+  <main class="card">
+
+    <div class="small">
+      MID-AUTUMN FESTIVAL
+    </div>
+
+    <h1>
+      中秋快乐
+    </h1>
+
+    <div class="subtitle">
+      月色正好，人间值得 🌕
+    </div>
+
+    <div class="message">
+
+      今夜的月亮，
+      替远方的人照亮回家的方向。
+
+      <br><br>
+
+      愿你有月饼的甜，
+      有晚风的温柔，
+      也有想见的人恰好在身边。
+
+      <br><br>
+
+      山河远阔，
+      人间烟火。
+
+      <br>
+
+      愿所有思念都有回应，
+      所有团圆都不负等待。
+
+      <br><br>
+
+      中秋安康，万事胜意。✨
+
+    </div>
+
+    <div class="rabbit">
+      🐇 🥮 🌕
+    </div>
+
+  </main>
+
+</body>
+</html>
