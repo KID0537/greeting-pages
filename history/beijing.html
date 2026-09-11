@@ -2,1633 +2,2268 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>北京 · 第一年</title>
-
-  <style>
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
-    }
-
-    body {
-      font-family:
-        "PingFang SC",
-        "Microsoft YaHei",
-        sans-serif;
-
-      color: white;
-      background: #18202b;
-      overflow: hidden;
-    }
-
-    button {
-      font-family: inherit;
-    }
-
-    .background {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-
-      background:
-        radial-gradient(
-          circle at 25% 25%,
-          rgba(255, 195, 100, .22),
-          transparent 29%
-        ),
-        linear-gradient(
-          145deg,
-          #554332,
-          #8b6541 55%,
-          #ad7d55
-        );
-
-      transition: background 1s ease;
-    }
-
-    .overlay {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(0, 0, 0, .04),
-          rgba(0, 0, 0, .34)
-        );
-    }
-
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-
-      width: 100%;
-
-      padding: 24px 30px;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      z-index: 10;
+<meta charset="UTF-8">
 
-      pointer-events: none;
-    }
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-    .brand {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 4px;
-      opacity: .65;
-    }
+<title>北京 · 第一年</title>
 
-    .signature-top {
-      font-size: 13px;
-      letter-spacing: 3px;
-      opacity: .65;
-    }
+<style>
 
-    .music-area {
-      position: fixed;
-      right: 28px;
-      top: 72px;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-      z-index: 60;
+html,
+body{
+  width:100%;
+  min-height:100%;
+}
 
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+body{
+  font-family:
+    "PingFang SC",
+    "Microsoft YaHei",
+    sans-serif;
 
-      gap: 8px;
-    }
+  color:white;
+  background:#18202b;
 
-    .music-btn {
-      width: 46px;
-      height: 46px;
+  overflow:hidden;
+}
 
-      border-radius: 50%;
+button{
+  font-family:inherit;
+}
 
-      border:
-        1px solid rgba(255, 255, 255, .22);
 
-      background:
-        rgba(255, 255, 255, .10);
+/* ==============================
+   BACKGROUND
+============================== */
 
-      color: white;
+.background{
+  position:fixed;
+  inset:0;
 
-      backdrop-filter: blur(14px);
+  z-index:-3;
 
-      cursor: pointer;
-      font-size: 18px;
+  background:
+    linear-gradient(
+      145deg,
+      #554332,
+      #8b6541
+    );
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  transition:
+    background 1s ease;
+}
 
-      transition:
-        transform .25s ease,
-        background .25s ease,
-        opacity .25s ease;
+.background-photo{
+  position:fixed;
+  inset:0;
 
-      opacity: .72;
-    }
+  z-index:-2;
 
-    .music-btn:hover {
-      opacity: 1;
-      transform: scale(1.08);
+  background-size:cover;
+  background-position:center;
 
-      background:
-        rgba(255, 255, 255, .17);
-    }
+  opacity:.23;
 
-    .music-btn.playing {
-      opacity: 1;
+  filter:
+    saturate(.9);
 
-      animation:
-        musicPulse 2s ease-in-out infinite;
-    }
+  transform:scale(1.04);
 
-    @keyframes musicPulse {
-      50% {
-        transform: scale(1.08);
+  transition:
+    opacity .7s ease,
+    background-image .8s ease,
+    transform 1s ease;
+}
 
-        box-shadow:
-          0 0 20px
-          rgba(255, 255, 255, .18);
-      }
-    }
+.overlay{
+  position:fixed;
+  inset:0;
 
-    .music-status {
-      max-width: 190px;
+  z-index:-1;
 
-      padding: 6px 10px;
+  pointer-events:none;
 
-      border-radius: 10px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(10,14,20,.68),
+      rgba(10,14,20,.28) 55%,
+      rgba(10,14,20,.55)
+    );
+}
 
-      background:
-        rgba(0, 0, 0, .22);
 
-      backdrop-filter: blur(10px);
+/* ==============================
+   TOP
+============================== */
 
-      font-size: 11px;
-      line-height: 1.5;
+.topbar{
+  position:fixed;
 
-      opacity: 0;
+  top:0;
+  left:0;
 
-      transform:
-        translateY(-4px);
+  width:100%;
 
-      pointer-events: none;
+  padding:
+    24px 30px;
 
-      transition:
-        opacity .3s ease,
-        transform .3s ease;
-    }
+  display:flex;
 
-    .music-status.show {
-      opacity: .72;
+  justify-content:
+    space-between;
 
-      transform:
-        translateY(0);
-    }
+  align-items:center;
 
-    .app {
-      width: 100vw;
-      height: 100vh;
+  z-index:20;
 
-      display: flex;
-      flex-direction: column;
+  pointer-events:none;
+}
 
-      justify-content: center;
-      align-items: center;
+.brand,
+.signature-top{
+  font-size:13px;
 
-      padding:
-        90px 24px 105px;
-    }
+  letter-spacing:4px;
 
-    .header {
-      position: absolute;
-      top: 72px;
+  opacity:.7;
+}
 
-      width: 90%;
+.brand{
+  font-weight:600;
+}
 
-      text-align: center;
-    }
 
-    .small {
-      font-size: 11px;
-      letter-spacing: 5px;
-      opacity: .42;
-    }
+/* ==============================
+   MUSIC
+============================== */
 
-    .header h1 {
-      margin-top: 10px;
+.music-area{
+  position:fixed;
 
-      font-size:
-        clamp(27px, 4vw, 42px);
+  right:28px;
+  top:68px;
 
-      font-weight: 500;
-      letter-spacing: 2px;
-    }
+  z-index:70;
 
-    .content {
-      width:
-        min(720px, 92vw);
+  display:flex;
 
-      text-align: center;
+  flex-direction:column;
 
-      transition:
-        opacity .35s ease,
-        transform .35s ease;
-    }
+  align-items:flex-end;
 
-    .content.change {
-      opacity: 0;
+  gap:8px;
+}
 
-      transform:
-        translateY(10px);
-    }
+.music-btn{
+  width:44px;
+  height:44px;
 
-    .season-icon {
-      font-size: 56px;
-      margin-bottom: 18px;
-    }
+  border-radius:50%;
 
-    .season-name {
-      font-family:
-        "Songti SC",
-        "STSong",
-        serif;
+  border:
+    1px solid
+    rgba(255,255,255,.25);
 
-      font-size:
-        clamp(55px, 9vw, 92px);
+  background:
+    rgba(20,25,35,.22);
 
-      font-weight: 400;
-      letter-spacing: 10px;
+  color:white;
 
-      margin-bottom: 16px;
-    }
+  backdrop-filter:
+    blur(14px);
 
-    .season-date {
-      font-size: 11px;
-      letter-spacing: 4px;
-      opacity: .42;
+  cursor:pointer;
 
-      margin-bottom: 30px;
-    }
+  font-size:17px;
 
-    .season-text {
-      font-family:
-        "Songti SC",
-        "STSong",
-        serif;
+  opacity:.75;
 
-      font-size:
-        clamp(17px, 2vw, 20px);
+  transition:.25s;
+}
 
-      line-height: 2.1;
-      letter-spacing: .5px;
-      opacity: .88;
-    }
+.music-btn:hover{
+  opacity:1;
+  transform:scale(1.08);
+}
 
-    .season-nav {
-      position: absolute;
-      bottom: 42px;
-      left: 50%;
+.music-btn.playing{
+  opacity:1;
 
-      transform:
-        translateX(-50%);
+  animation:
+    musicPulse 2s
+    ease-in-out infinite;
+}
 
-      display: flex;
-      gap: 11px;
-    }
+@keyframes musicPulse{
 
-    .season-btn {
-      border:
-        1px solid
-        rgba(255, 255, 255, .18);
+  50%{
+    transform:scale(1.08);
 
-      background:
-        rgba(255, 255, 255, .07);
+    box-shadow:
+      0 0 18px
+      rgba(255,255,255,.18);
+  }
 
-      color: white;
+}
 
-      padding:
-        11px 18px;
+.music-status{
+  max-width:190px;
 
-      border-radius: 999px;
+  padding:6px 10px;
 
-      cursor: pointer;
+  border-radius:9px;
 
-      backdrop-filter:
-        blur(12px);
+  background:
+    rgba(0,0,0,.3);
 
-      font-size: 13px;
-      opacity: .58;
+  font-size:11px;
 
-      transition:
-        transform .25s ease,
-        background .25s ease,
-        opacity .25s ease;
-    }
+  opacity:0;
 
-    .season-btn:hover,
-    .season-btn.active {
-      opacity: 1;
+  transition:.3s;
+}
 
-      transform:
-        translateY(-3px);
+.music-status.show{
+  opacity:.8;
+}
 
-      background:
-        rgba(255, 255, 255, .16);
-    }
 
-    .finish-btn {
-      position: fixed;
+/* ==============================
+   MAIN
+============================== */
 
-      right: 30px;
-      bottom: 38px;
+.app{
+  width:100vw;
+  height:100vh;
 
-      z-index: 10;
+  display:flex;
 
-      border: none;
-      background: none;
+  align-items:center;
+  justify-content:center;
 
-      color: white;
+  padding:
+    95px 6vw 105px;
+}
 
-      cursor: pointer;
+.header{
+  position:absolute;
 
-      font-size: 13px;
-      letter-spacing: 1px;
-      opacity: .48;
+  top:70px;
+  left:50%;
 
-      transition:
-        opacity .25s ease,
-        transform .25s ease;
-    }
+  transform:
+    translateX(-50%);
 
-    .finish-btn:hover {
-      opacity: 1;
+  width:90%;
 
-      transform:
-        translateX(4px);
-    }
+  text-align:center;
+}
 
-    .final-page {
-      position: fixed;
-      inset: 0;
+.small{
+  font-size:11px;
 
-      z-index: 100;
+  letter-spacing:5px;
 
-      background:
-        radial-gradient(
-          circle at 50% 0%,
-          rgba(211, 187, 143, .14),
-          transparent 32%
-        ),
-        linear-gradient(
-          160deg,
-          #10161d,
-          #182634 58%,
-          #10171f
-        );
+  opacity:.45;
+}
 
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+.header h1{
+  margin-top:9px;
 
-      transition:
-        opacity .55s ease,
-        visibility .55s ease;
-    }
+  font-size:
+    clamp(26px,4vw,40px);
 
-    .final-page.active {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
+  font-weight:500;
 
-    .final-scroll {
-      position: absolute;
-      inset: 0;
+  letter-spacing:2px;
+}
 
-      overflow-y: auto;
-      overflow-x: hidden;
 
-      padding:
-        120px 24px 100px;
+/* ==============================
+   SEASON LAYOUT
+============================== */
 
-      scroll-behavior: smooth;
+.season-layout{
+  width:
+    min(1120px,94vw);
 
-      -webkit-overflow-scrolling: touch;
-    }
+  display:grid;
 
-    .final-content {
-      width:
-        min(730px, 88vw);
+  grid-template-columns:
+    minmax(300px,.85fr)
+    minmax(360px,1.15fr);
 
-      margin: 0 auto;
+  align-items:center;
 
-      text-align: center;
-    }
+  gap:
+    clamp(35px,6vw,85px);
 
-    .final-small {
-      font-size: 11px;
-      letter-spacing: 5px;
-      opacity: .34;
+  transition:
+    opacity .35s,
+    transform .35s;
+}
 
-      margin-bottom: 28px;
-    }
+.season-layout.change{
+  opacity:0;
 
-    .final-title {
-      font-family:
-        "Songti SC",
-        "STSong",
-        serif;
+  transform:
+    translateY(8px);
+}
 
-      font-size:
-        clamp(34px, 6vw, 58px);
 
-      font-weight: 400;
-      line-height: 1.55;
+/* LEFT TEXT */
 
-      margin-bottom: 48px;
-    }
+.season-copy{
+  text-align:left;
+}
 
-    .final-text {
-      font-family:
-        "Songti SC",
-        "STSong",
-        serif;
+.season-icon{
+  font-size:44px;
 
-      font-size:
-        clamp(16px, 2vw, 19px);
+  margin-bottom:12px;
+}
 
-      line-height: 2.25;
-      letter-spacing: .4px;
-      opacity: .72;
-    }
+.season-name{
+  font-family:
+    "Songti SC",
+    "STSong",
+    serif;
 
-    .final-separator {
-      width: 38px;
-      height: 1px;
+  font-size:
+    clamp(58px,8vw,94px);
 
-      margin:
-        48px auto;
+  font-weight:400;
 
-      background:
-        rgba(255, 255, 255, .25);
-    }
+  letter-spacing:10px;
 
-    .quote {
-      margin:
-        55px 0;
+  line-height:1;
 
-      font-family:
-        "Songti SC",
-        "STSong",
-        serif;
+  margin-bottom:18px;
+}
 
-      font-size:
-        clamp(22px, 3vw, 29px);
+.season-date{
+  font-size:11px;
 
-      line-height: 1.8;
-      letter-spacing: 2px;
+  letter-spacing:4px;
 
-      color: #e7d6b5;
-    }
+  opacity:.46;
 
-    .signature {
-      margin-top: 55px;
+  margin-bottom:28px;
+}
 
-      text-align: right;
+.season-text{
+  max-width:470px;
 
-      font-size: 14px;
-      letter-spacing: 2px;
-      opacity: .5;
-    }
+  font-family:
+    "Songti SC",
+    "STSong",
+    serif;
 
-    .back-btn {
-      position: fixed;
+  font-size:
+    clamp(16px,1.5vw,19px);
 
-      top: 28px;
-      left: 28px;
+  line-height:2.05;
 
-      z-index: 150;
+  letter-spacing:.4px;
 
-      border:
-        1px solid
-        rgba(255, 255, 255, .14);
+  opacity:.86;
+}
 
-      background:
-        rgba(255, 255, 255, .06);
 
-      color: white;
+/* ==============================
+   PHOTO AREA
+============================== */
 
-      padding:
-        10px 16px;
+.photo-stage{
+  position:relative;
 
-      border-radius: 999px;
+  height:
+    min(58vh,570px);
 
-      backdrop-filter:
-        blur(14px);
+  min-height:380px;
 
-      cursor: pointer;
+  border-radius:26px;
 
-      font-size: 13px;
-      opacity: .65;
+  overflow:hidden;
 
-      transition:
-        opacity .25s ease,
-        background .25s ease,
-        transform .25s ease;
-    }
+  border:
+    1px solid
+    rgba(255,255,255,.18);
 
-    .back-btn:hover {
-      opacity: 1;
+  box-shadow:
+    0 30px 70px
+    rgba(0,0,0,.3);
 
-      background:
-        rgba(255, 255, 255, .13);
+  background:
+    rgba(255,255,255,.05);
+}
 
-      transform:
-        translateX(-3px);
-    }
+.season-photo{
+  width:100%;
+  height:100%;
 
-    @media(max-width: 650px) {
+  object-fit:cover;
 
-      .topbar {
-        padding:
-          19px 20px;
-      }
+  display:block;
 
-      .header {
-        top: 78px;
-      }
+  opacity:1;
 
-      .music-area {
-        right: 18px;
-        top: 62px;
-      }
+  transform:scale(1);
 
-      .music-btn {
-        width: 41px;
-        height: 41px;
-      }
+  transition:
+    opacity .35s ease,
+    transform .8s ease;
+}
 
-      .app {
-        padding:
-          115px 20px 130px;
-      }
+.photo-stage:hover
+.season-photo{
+  transform:scale(1.025);
+}
 
-      .season-nav {
-        bottom: 28px;
+.season-photo.fade{
+  opacity:0;
+}
 
-        width: 95%;
 
-        justify-content: center;
-      }
+/* PHOTO GRADIENT */
 
-      .season-btn {
-        padding:
-          9px 13px;
-      }
+.photo-stage::after{
+  content:"";
 
-      .finish-btn {
-        right: 18px;
-        bottom: 75px;
-      }
+  position:absolute;
+  inset:0;
 
-      .final-scroll {
-        padding:
-          100px 22px 85px;
-      }
+  pointer-events:none;
 
-      .back-btn {
-        top: 20px;
-        left: 18px;
-      }
+  background:
+    linear-gradient(
+      180deg,
+      transparent 55%,
+      rgba(5,8,12,.35)
+    );
+}
 
-    }
 
-  </style>
+/* PHOTO NUMBER */
 
+.photo-count{
+  position:absolute;
+
+  left:20px;
+  bottom:18px;
+
+  z-index:5;
+
+  font-size:11px;
+
+  letter-spacing:2px;
+
+  opacity:.78;
+}
+
+
+/* PHOTO ARROWS */
+
+.photo-arrow{
+  position:absolute;
+
+  top:50%;
+
+  z-index:6;
+
+  transform:
+    translateY(-50%);
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(255,255,255,.24);
+
+  background:
+    rgba(15,20,28,.28);
+
+  color:white;
+
+  backdrop-filter:
+    blur(10px);
+
+  cursor:pointer;
+
+  opacity:.55;
+
+  transition:.25s;
+}
+
+.photo-arrow:hover{
+  opacity:1;
+
+  background:
+    rgba(15,20,28,.5);
+
+  transform:
+    translateY(-50%)
+    scale(1.07);
+}
+
+.photo-prev{
+  left:16px;
+}
+
+.photo-next{
+  right:16px;
+}
+
+
+/* ==============================
+   SEASON NAV
+============================== */
+
+.season-nav{
+  position:absolute;
+
+  bottom:40px;
+
+  left:50%;
+
+  transform:
+    translateX(-50%);
+
+  display:flex;
+
+  gap:11px;
+
+  z-index:12;
+}
+
+.season-btn{
+  border:
+    1px solid
+    rgba(255,255,255,.2);
+
+  background:
+    rgba(15,20,28,.2);
+
+  color:white;
+
+  padding:
+    10px 18px;
+
+  border-radius:999px;
+
+  cursor:pointer;
+
+  backdrop-filter:
+    blur(12px);
+
+  font-size:13px;
+
+  opacity:.6;
+
+  transition:.25s;
+}
+
+.season-btn:hover,
+.season-btn.active{
+  opacity:1;
+
+  transform:
+    translateY(-3px);
+
+  background:
+    rgba(255,255,255,.14);
+}
+
+
+/* ==============================
+   FINAL BUTTON
+============================== */
+
+.finish-btn{
+  position:fixed;
+
+  right:30px;
+  bottom:38px;
+
+  z-index:15;
+
+  border:none;
+
+  background:none;
+
+  color:white;
+
+  cursor:pointer;
+
+  font-size:13px;
+
+  letter-spacing:1px;
+
+  opacity:.48;
+
+  transition:.25s;
+}
+
+.finish-btn:hover{
+  opacity:1;
+
+  transform:
+    translateX(4px);
+}
+
+
+/* ==============================
+   FINAL PAGE
+============================== */
+
+.final-page{
+  position:fixed;
+  inset:0;
+
+  z-index:100;
+
+  background:
+    linear-gradient(
+      160deg,
+      #10161d,
+      #182634 58%,
+      #10171f
+    );
+
+  opacity:0;
+
+  visibility:hidden;
+
+  pointer-events:none;
+
+  transition:
+    opacity .55s,
+    visibility .55s;
+}
+
+.final-page.active{
+  opacity:1;
+
+  visibility:visible;
+
+  pointer-events:auto;
+}
+
+.final-scroll{
+  position:absolute;
+  inset:0;
+
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  padding:
+    115px 24px
+    110px;
+
+  scroll-behavior:smooth;
+
+  -webkit-overflow-scrolling:
+    touch;
+}
+
+.final-content{
+  width:
+    min(760px,88vw);
+
+  margin:0 auto;
+
+  text-align:center;
+}
+
+.final-small{
+  font-size:11px;
+
+  letter-spacing:5px;
+
+  opacity:.34;
+
+  margin-bottom:28px;
+}
+
+.final-title{
+  font-family:
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size:
+    clamp(34px,6vw,58px);
+
+  font-weight:400;
+
+  line-height:1.55;
+
+  margin-bottom:55px;
+}
+
+.final-text{
+  font-family:
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size:
+    clamp(16px,2vw,19px);
+
+  line-height:2.25;
+
+  letter-spacing:.4px;
+
+  opacity:.72;
+}
+
+.final-separator{
+  width:38px;
+  height:1px;
+
+  margin:
+    50px auto;
+
+  background:
+    rgba(255,255,255,.22);
+}
+
+.quote{
+  margin:
+    58px 0;
+
+  font-family:
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size:
+    clamp(21px,3vw,29px);
+
+  line-height:1.8;
+
+  letter-spacing:2px;
+
+  color:#e7d6b5;
+}
+
+
+/* ==============================
+   OPENING COMPARISON
+============================== */
+
+.opening-section{
+  margin-top:85px;
+
+  padding-top:70px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.12);
+}
+
+.opening-label{
+  font-size:11px;
+
+  letter-spacing:5px;
+
+  opacity:.35;
+
+  margin-bottom:35px;
+}
+
+.opening-grid{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:18px;
+
+  align-items:center;
+}
+
+.opening-card{
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:20px;
+
+  background:#111;
+
+  border:
+    1px solid
+    rgba(255,255,255,.13);
+
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.25);
+}
+
+.opening-card img{
+  width:100%;
+
+  aspect-ratio:4/5;
+
+  object-fit:cover;
+
+  display:block;
+}
+
+.opening-year{
+  position:absolute;
+
+  left:18px;
+  bottom:16px;
+
+  padding:
+    6px 10px;
+
+  border-radius:999px;
+
+  background:
+    rgba(0,0,0,.4);
+
+  backdrop-filter:
+    blur(8px);
+
+  font-size:12px;
+
+  letter-spacing:2px;
+}
+
+.opening-caption{
+  margin-top:32px;
+
+  font-family:
+    "Songti SC",
+    "STSong",
+    serif;
+
+  font-size:
+    clamp(17px,2vw,20px);
+
+  line-height:2;
+
+  opacity:.75;
+}
+
+
+/* FINAL CLOSING */
+
+.closing{
+  margin:
+    95px 0 30px;
+
+  font-family:
+    "Songti SC",
+    "STSong",
+    serif;
+}
+
+.closing-small{
+  font-size:12px;
+
+  letter-spacing:4px;
+
+  opacity:.35;
+
+  margin-bottom:25px;
+}
+
+.closing-main{
+  font-size:
+    clamp(27px,4vw,42px);
+
+  line-height:1.75;
+
+  color:
+    #e7d6b5;
+}
+
+.signature{
+  margin-top:55px;
+
+  text-align:right;
+
+  font-size:14px;
+
+  letter-spacing:3px;
+
+  opacity:.5;
+}
+
+
+/* BACK */
+
+.back-btn{
+  position:fixed;
+
+  top:27px;
+  left:27px;
+
+  z-index:150;
+
+  border:
+    1px solid
+    rgba(255,255,255,.16);
+
+  background:
+    rgba(255,255,255,.06);
+
+  color:white;
+
+  padding:
+    10px 16px;
+
+  border-radius:999px;
+
+  backdrop-filter:
+    blur(12px);
+
+  cursor:pointer;
+
+  opacity:.65;
+
+  transition:.25s;
+}
+
+.back-btn:hover{
+  opacity:1;
+
+  transform:
+    translateX(-3px);
+}
+
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media(max-width:780px){
+
+  .topbar{
+    padding:
+      18px 20px;
+  }
+
+  .music-area{
+    right:17px;
+    top:60px;
+  }
+
+  .header{
+    top:70px;
+  }
+
+  .app{
+    padding:
+      125px 20px
+      125px;
+
+    overflow-y:auto;
+  }
+
+  .season-layout{
+    grid-template-columns:
+      1fr;
+
+    gap:25px;
+
+    width:
+      min(600px,92vw);
+
+    margin:auto;
+  }
+
+  .season-copy{
+    text-align:center;
+  }
+
+  .season-text{
+    margin:auto;
+  }
+
+  .season-icon{
+    font-size:38px;
+  }
+
+  .season-name{
+    font-size:
+      clamp(52px,16vw,74px);
+  }
+
+  .photo-stage{
+    height:38vh;
+
+    min-height:260px;
+  }
+
+  .season-nav{
+    position:fixed;
+
+    bottom:22px;
+
+    width:100%;
+
+    justify-content:center;
+  }
+
+  .season-btn{
+    padding:
+      8px 13px;
+  }
+
+  .finish-btn{
+    right:18px;
+    bottom:65px;
+  }
+
+  .opening-grid{
+    grid-template-columns:1fr;
+  }
+
+  .opening-card img{
+    aspect-ratio:4/3;
+  }
+
+  .final-scroll{
+    padding:
+      95px 20px
+      80px;
+  }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
 
-  <!-- 背景音乐 -->
-
-  <audio
-    id="bgm"
-    preload="auto"
-    loop
+<audio
+  id="bgm"
+  preload="auto"
+  loop
+>
+  <source
+    src="../music/beijing-seasons.mp3"
+    type="audio/mpeg"
   >
-
-    <source
-      src="../music/beijing-seasons.mp3"
-      type="audio/mpeg"
-    >
-
-  </audio>
+</audio>
 
 
-  <!-- 顶部署名 -->
+<div class="topbar">
 
-  <div class="topbar">
-
-    <div class="brand">
-      BEIJING
-    </div>
-
-    <div class="signature-top">
-      KID
-    </div>
-
+  <div class="brand">
+    BEIJING
   </div>
 
-
-  <!-- 音乐按钮 -->
-
-  <div class="music-area">
-
-    <button
-      class="music-btn"
-      id="musicBtn"
-      title="播放背景音乐"
-    >
-      ♫
-    </button>
-
-    <div
-      class="music-status"
-      id="musicStatus"
-    >
-      点击播放背景音乐
-    </div>
-
+  <div class="signature-top">
+    KID
   </div>
 
+</div>
 
-  <!-- 背景 -->
+
+<div class="music-area">
+
+  <button
+    class="music-btn"
+    id="musicBtn"
+    title="播放背景音乐"
+  >
+    ♫
+  </button>
 
   <div
-    class="background"
-    id="background"
-  ></div>
+    class="music-status"
+    id="musicStatus"
+  >
+    点击播放背景音乐
+  </div>
 
-  <div class="overlay"></div>
-
-
-  <!-- 四季主页 -->
-
-  <main class="app">
-
-    <header class="header">
-
-      <div class="small">
-        BEIJING · YEAR ONE
-      </div>
-
-      <h1>
-        在北京的第一年
-      </h1>
-
-    </header>
+</div>
 
 
-    <section
-      class="content"
-      id="content"
+<div
+  class="background"
+  id="background"
+></div>
+
+<div
+  class="background-photo"
+  id="backgroundPhoto"
+></div>
+
+<div class="overlay"></div>
+
+
+<main class="app">
+
+
+<header class="header">
+
+  <div class="small">
+    BEIJING · YEAR ONE
+  </div>
+
+  <h1>
+    在北京的第一年
+  </h1>
+
+</header>
+
+
+<section
+  class="season-layout"
+  id="seasonLayout"
+>
+
+
+  <div class="season-copy">
+
+    <div
+      class="season-icon"
+      id="seasonIcon"
+    >
+      🍂
+    </div>
+
+    <div
+      class="season-name"
+      id="seasonName"
+    >
+      秋
+    </div>
+
+    <div
+      class="season-date"
+      id="seasonDate"
+    >
+      AUTUMN · ARRIVAL
+    </div>
+
+    <div
+      class="season-text"
+      id="seasonText"
     >
 
-      <div
-        class="season-icon"
-        id="seasonIcon"
-      >
-        🍂
-      </div>
+      天气开始变凉，
+      城市还完全陌生。
+
+      <br><br>
+
+      从一段已经很熟悉的生活里走出来，
+      又重新认识新的学校、新的路，
+      和新的日常。
+
+      <br><br>
+
+      那时候大概还不知道，
+
+      <br>
+
+      一年以后，
+      北京也会变成一个熟悉的地方。
+
+    </div>
+
+  </div>
 
 
-      <div
-        class="season-name"
-        id="seasonName"
-      >
-        秋
-      </div>
+  <div class="photo-stage">
 
-
-      <div
-        class="season-date"
-        id="seasonDate"
-      >
-        AUTUMN · ARRIVAL
-      </div>
-
-
-      <div
-        class="season-text"
-        id="seasonText"
-      >
-
-        天气开始变凉，
-        城市还完全陌生。
-
-        <br>
-
-        从一段已经很熟悉的生活里走出来，
-        又重新认识新的学校、新的路，
-        和新的日常。
-
-        <br><br>
-
-        那时候大概还不知道，
-
-        <br>
-
-        一年以后，
-        北京也会变成一个熟悉的地方。
-
-      </div>
-
-    </section>
-
-
-    <nav class="season-nav">
-
-      <button
-        class="season-btn active"
-        data-season="autumn"
-      >
-        秋
-      </button>
-
-      <button
-        class="season-btn"
-        data-season="winter"
-      >
-        冬
-      </button>
-
-      <button
-        class="season-btn"
-        data-season="spring"
-      >
-        春
-      </button>
-
-      <button
-        class="season-btn"
-        data-season="summer"
-      >
-        夏
-      </button>
-
-    </nav>
+    <img
+      id="seasonPhoto"
+      class="season-photo"
+      src="../pictures/autumn-road.jpg"
+      alt="北京的秋天"
+    >
 
 
     <button
-      class="finish-btn"
-      id="finishBtn"
+      class="photo-arrow photo-prev"
+      id="photoPrev"
+      aria-label="上一张"
     >
-      查看这一年 →
+      ‹
     </button>
 
-  </main>
-
-
-  <!-- 最终页 -->
-
-  <section
-    class="final-page"
-    id="finalPage"
-  >
-
 
     <button
-      class="back-btn"
-      id="backBtn"
+      class="photo-arrow photo-next"
+      id="photoNext"
+      aria-label="下一张"
     >
-      ← 回到四季
+      ›
     </button>
 
 
     <div
-      class="final-scroll"
-      id="finalScroll"
+      class="photo-count"
+      id="photoCount"
     >
+      01 / 03
+    </div>
 
-      <article class="final-content">
+  </div>
 
 
-        <div class="final-small">
-          AFTER FOUR SEASONS
-        </div>
+</section>
 
 
-        <h2 class="final-title">
+<nav class="season-nav">
 
-          至此，
+  <button
+    class="season-btn active"
+    data-season="autumn"
+  >
+    秋
+  </button>
 
-          <br><br>
+  <button
+    class="season-btn"
+    data-season="winter"
+  >
+    冬
+  </button>
 
-          我已见过北京的
+  <button
+    class="season-btn"
+    data-season="spring"
+  >
+    春
+  </button>
 
-          <br>
+  <button
+    class="season-btn"
+    data-season="summer"
+  >
+    夏
+  </button>
 
-          一整个春夏秋冬
+</nav>
 
-        </h2>
 
+<button
+  class="finish-btn"
+  id="finishBtn"
+>
+  查看这一年 →
+</button>
 
-        <div class="final-text">
 
-          去年秋天来到北京的时候，
+</main>
 
-          <br>
 
-          很多东西其实还留在上一段生活里。
 
-          <br><br>
+<!-- ==========================
+     FINAL PAGE
+=========================== -->
 
-          熟悉的环境，
+<section
+  class="final-page"
+  id="finalPage"
+>
 
-          <br>
 
-          已经习惯的身份，
+<button
+  class="back-btn"
+  id="backBtn"
+>
+  ← 回到四季
+</button>
 
-          <br>
 
-          认识的人，
+<div
+  class="final-scroll"
+  id="finalScroll"
+>
 
-          <br>
 
-          以及那些曾经占据了很多注意力的事情。
+<article class="final-content">
 
-        </div>
 
+<div class="final-small">
+  AFTER FOUR SEASONS
+</div>
 
-        <div class="final-separator"></div>
 
+<h2 class="final-title">
 
-        <div class="final-text">
+  至此，
 
-          从前总觉得，
+  <br><br>
 
-          <br>
+  我已见过北京的
 
-          认识多少人，
-          做过多少事，
-          在什么位置，
-          好像都很重要。
+  <br>
 
-          <br><br>
+  一整个春夏秋冬
 
-          后来换了一座城市，
+</h2>
 
-          <br>
 
-          生活重新开始，
+<div class="final-text">
 
-          <br>
+  去年秋天来到北京的时候，
 
-          才发现很多东西
-          并不需要一直带在身上。
+  <br>
 
-          <br><br>
+  很多东西其实还留在上一段生活里。
 
-          有的人自然还会联系，
+  <br><br>
 
-          <br>
+  熟悉的环境，
 
-          有的人偶尔出现在消息列表里，
+  <br>
 
-          <br>
+  已经习惯的身份，
 
-          还有很多名字，
-          大概就适合留在上一页。
+  <br>
 
-        </div>
+  认识的人，
 
+  <br>
 
-        <div class="quote">
+  以及那些曾经占据了很多注意力的事情。
 
-          至此，
+</div>
 
-          <br>
 
-          我已见过北京的
+<div class="final-separator"></div>
 
-          <br>
 
-          一整个春夏秋冬
+<div class="final-text">
 
-        </div>
+  从前总觉得，
 
+  <br>
 
-        <div class="final-text">
+  认识多少人，
+  做过多少事，
+  在什么位置，
+  好像都很重要。
 
-          北京也从一个
-          完全陌生的城市，
+  <br><br>
 
-          <br>
+  后来换了一座城市，
 
-          慢慢变成了每天醒来以后
-          要继续生活的地方。
+  <br>
 
-          <br><br>
+  生活重新开始，
 
-          走过秋天，
+  <br>
 
-          <br>
+  才发现很多东西
+  并不需要一直带在身上。
 
-          见过冬天，
+  <br><br>
 
-          <br>
+  有的人自然还会联系，
 
-          等到春天，
+  <br>
 
-          <br>
+  有的人偶尔出现在消息列表里，
 
-          又过完夏天。
+  <br>
 
-          <br><br>
+  还有很多名字，
+  大概就适合留在上一页。
 
-          好像也终于可以确认，
+</div>
 
-          <br>
 
-          上一段生活真的已经结束了。
+<div class="quote">
 
-        </div>
+  旧页不用撕掉。
 
+  <br>
 
-        <div class="final-separator"></div>
+  翻过去就可以了。
 
+</div>
 
-        <div class="final-text">
 
-          从前那些做过的事
-          没有消失，
+<div class="final-text">
 
-          <br>
+  从前那些做过的事
+  没有消失，
 
-          得到过的东西也没有失效。
+  <br>
 
-          <br><br>
+  得到过的东西
+  也没有失效。
 
-          它们只是慢慢从
-          “我是谁”
+  <br><br>
 
-          <br>
+  它们只是慢慢从
 
-          变成了
+  <br>
 
-          <br>
+  “我是谁”
 
-          “我曾经做过什么”。
+  <br>
 
-          <br><br>
+  变成了
 
-          这样其实很好。
+  <br>
 
-        </div>
+  “我曾经做过什么”。
 
+</div>
 
-        <div class="quote">
 
-          旧页不用撕掉。
+<!-- 开学照片对照 -->
 
-          <br>
+<section class="opening-section">
 
-          翻过去就可以了。
+  <div class="opening-label">
+    SEPTEMBER · ONE YEAR APART
+  </div>
 
-        </div>
 
+  <div class="opening-grid">
 
-        <div class="final-text">
+    <div class="opening-card">
 
-          真正值得留下的人和事，
+      <img
+        src="../pictures/opening-2025.jpg"
+        alt="2025年开学"
+      >
 
-          <br>
-
-          自然会继续出现在下一页。
-
-          <br><br>
-
-          至于剩下的，
-
-          <br>
-
-          就留给过去吧。
-
-          <br><br><br>
-
-          北京的第一年结束。
-
-          <br><br>
-
-          然后，
-
-          <br>
-
-          继续往前。
-
-        </div>
-
-
-        <div class="signature">
-          KID · Beijing
-        </div>
-
-
-      </article>
+      <div class="opening-year">
+        2025
+      </div>
 
     </div>
 
-  </section>
 
+    <div class="opening-card">
 
-  <script>
+      <img
+        src="../pictures/opening-2026.jpg"
+        alt="2026年开学"
+      >
 
-    const seasons = {
+      <div class="opening-year">
+        2026
+      </div>
 
-      autumn: {
+    </div>
 
-        icon: "🍂",
+  </div>
 
-        name: "秋",
 
-        date:
-          "AUTUMN · ARRIVAL",
+  <div class="opening-caption">
 
-        background:
-          "radial-gradient(circle at 25% 25%, rgba(255,195,100,.22), transparent 29%), linear-gradient(145deg,#554332,#8b6541 55%,#ad7d55)",
+    去年，
+    我从这里开始。
 
-        text: `
+    <br><br>
 
-          天气开始变凉，
-          城市还完全陌生。
+    今年，
+    又站在这里看新的人开始。
 
-          <br>
+  </div>
 
-          从一段已经很熟悉的生活里走出来，
-          又重新认识新的学校、新的路，
-          和新的日常。
+</section>
 
-          <br><br>
 
-          那时候大概还不知道，
+<div class="closing">
 
-          <br>
+  <div class="closing-small">
+    ONE YEAR IN BEIJING
+  </div>
 
-          一年以后，
-          北京也会变成一个熟悉的地方。
+  <div class="closing-main">
 
-        `
+    至此，
 
-      },
+    <br>
 
+    我已见过北京的
 
-      winter: {
+    <br>
 
-        icon: "❄️",
+    一整个春夏秋冬
 
-        name: "冬",
+  </div>
 
-        date:
-          "WINTER · BEIJING",
+</div>
 
-        background:
-          "radial-gradient(circle at 75% 20%, rgba(220,235,255,.18), transparent 28%), linear-gradient(145deg,#182632,#304454 55%,#657786)",
 
-        text: `
+<div class="final-text">
 
-          天黑得很早，
+  真正值得留下的人和事，
 
-          <br>
+  <br>
 
-          风也比想象中更有存在感。
+  自然会继续出现在下一页。
 
-          <br><br>
+  <br><br>
 
-          很多第一次，
+  至于剩下的，
 
-          <br>
+  <br>
 
-          第一次真正习惯学校，
-          第一次慢慢认路，
-          第一次发现北京也没有那么遥远。
+  就留给过去吧。
 
-          <br><br>
+  <br><br><br>
 
-          日子就在这些
-          很普通的事情里慢慢过去。
+  北京的第一年结束。
 
-        `
+  <br><br>
 
-      },
+  然后，
 
+  <br>
 
-      spring: {
+  继续往前。
 
-        icon: "🌸",
+</div>
 
-        name: "春",
 
-        date:
-          "SPRING · BEIJING",
+<div class="signature">
+  KID · Beijing
+</div>
 
-        background:
-          "radial-gradient(circle at 22% 20%, rgba(255,210,220,.25), transparent 30%), linear-gradient(145deg,#526a62,#8b9b82 55%,#c9a6a6)",
 
-        text: `
+</article>
 
-          路边开始变绿，
+</div>
 
-          <br>
+</section>
 
-          白天一点点变长。
 
-          <br><br>
 
-          等到春天真正到来的时候，
+<script>
 
-          <br>
 
-          很多去年秋天
-          还觉得陌生的东西，
+/* ==============================
+   SEASONS + PHOTOS
+============================== */
 
-          <br>
 
-          已经变成了日常。
+const seasons={
 
-        `
 
-      },
+autumn:{
 
+  icon:"🍂",
 
-      summer: {
+  name:"秋",
 
-        icon: "🌿",
+  date:
+    "AUTUMN · ARRIVAL",
 
-        name: "夏",
+  background:
+    "linear-gradient(145deg,#3b2d25,#785035 55%,#9b6c43)",
 
-        date:
-          "SUMMER · ONE YEAR",
+  text:`
+    天气开始变凉，
+    城市还完全陌生。
 
-        background:
-          "radial-gradient(circle at 72% 18%, rgba(255,225,120,.25), transparent 27%), linear-gradient(145deg,#153c36,#275c50 55%,#7a8060)",
+    <br><br>
 
-        text: `
+    从一段已经很熟悉的生活里走出来，
+    又重新认识新的学校、新的路，
+    和新的日常。
 
-          北京的白天很长，
+    <br><br>
 
-          <br>
+    那时候大概还不知道，
 
-          树也长得很满。
+    <br>
 
-          <br><br>
+    一年以后，
+    北京也会变成一个熟悉的地方。
+  `,
 
-          某一天突然意识到，
+  photos:[
+    "../pictures/autumn-road.jpg",
+    "../pictures/autumn-ginkgo.jpg",
+    "../pictures/autumn-bike.jpg"
+  ]
 
-          <br>
+},
 
-          从第一次来到这里算起，
 
-          <br>
 
-          已经快一年了。
+winter:{
 
-          <br><br>
+  icon:"❄️",
 
-          秋冬春夏。
+  name:"冬",
 
-          <br>
+  date:
+    "WINTER · BEIJING",
 
-          原来一个完整的四季
-          已经走完。
+  background:
+    "linear-gradient(145deg,#182632,#344958 55%,#657786)",
 
-        `
+  text:`
+    天黑得很早，
 
-      }
+    <br>
 
-    };
+    风也比想象中更有存在感。
 
+    <br><br>
 
-    const content =
-      document.getElementById(
-        "content"
-      );
+    很多第一次，
 
+    <br>
 
-    const background =
-      document.getElementById(
-        "background"
-      );
+    第一次真正习惯学校，
+    第一次慢慢认路，
+    第一次发现北京
+    也没有那么遥远。
 
+    <br><br>
 
-    const seasonButtons =
-      document.querySelectorAll(
-        ".season-btn"
-      );
+    日子就在这些
+    很普通的事情里慢慢过去。
+  `,
 
+  photos:[
+    "../pictures/winter-tree.jpg",
+    "../pictures/winter-light.jpg",
+    "../pictures/winter-snow.jpg"
+  ]
 
-    seasonButtons.forEach(
-      button => {
+},
 
-        button.addEventListener(
-          "click",
 
-          function () {
 
-            const season =
-              this.dataset.season;
+spring:{
 
-            const data =
-              seasons[season];
+  icon:"🌸",
 
+  name:"春",
 
-            content.classList.add(
-              "change"
-            );
+  date:
+    "SPRING · BEIJING",
 
+  background:
+    "linear-gradient(145deg,#456252,#778a6b 55%,#b89b9d)",
 
-            seasonButtons.forEach(
-              btn => {
+  text:`
+    路边开始变绿，
 
-                btn.classList.remove(
-                  "active"
-                );
+    <br>
 
-              }
-            );
+    白天一点点变长。
 
+    <br><br>
 
-            this.classList.add(
-              "active"
-            );
+    等到春天真正到来的时候，
 
+    <br>
 
-            setTimeout(
-              () => {
+    很多去年秋天
+    还觉得陌生的东西，
 
-                document
-                  .getElementById(
-                    "seasonIcon"
-                  )
-                  .innerHTML =
-                    data.icon;
+    <br>
 
+    已经变成了日常。
+  `,
 
-                document
-                  .getElementById(
-                    "seasonName"
-                  )
-                  .innerHTML =
-                    data.name;
+  photos:[
+    "../pictures/spring-green.jpg",
+    "../pictures/spring-magnolia.jpg",
+    "../pictures/spring-sky.jpg"
+  ]
 
+},
 
-                document
-                  .getElementById(
-                    "seasonDate"
-                  )
-                  .innerHTML =
-                    data.date;
 
 
-                document
-                  .getElementById(
-                    "seasonText"
-                  )
-                  .innerHTML =
-                    data.text;
+summer:{
 
+  icon:"☁️",
 
-                background
-                  .style.background =
-                    data.background;
+  name:"夏",
 
+  date:
+    "SUMMER · ONE YEAR",
 
-                content.classList.remove(
-                  "change"
-                );
+  background:
+    "linear-gradient(145deg,#184460,#24789a 55%,#559bb1)",
 
-              },
+  text:`
+    北京的白天很长，
 
-              350
-            );
+    <br>
 
-          }
+    树也长得很满。
 
+    <br><br>
+
+    某一天突然意识到，
+
+    <br>
+
+    从第一次来到这里算起，
+
+    <br>
+
+    已经快一年了。
+
+    <br><br>
+
+    秋冬春夏。
+
+    <br>
+
+    原来一个完整的四季
+    已经走完。
+  `,
+
+  photos:[
+    "../pictures/summer-clouds.jpg",
+    "../pictures/summer-sky.jpg",
+    "../pictures/summer-city.jpg"
+  ]
+
+}
+
+};
+
+
+
+let currentSeason="autumn";
+let currentPhoto=0;
+
+
+const seasonLayout=
+  document.getElementById(
+    "seasonLayout"
+  );
+
+const seasonPhoto=
+  document.getElementById(
+    "seasonPhoto"
+  );
+
+const background=
+  document.getElementById(
+    "background"
+  );
+
+const backgroundPhoto=
+  document.getElementById(
+    "backgroundPhoto"
+  );
+
+const photoCount=
+  document.getElementById(
+    "photoCount"
+  );
+
+const seasonButtons=
+  document.querySelectorAll(
+    ".season-btn"
+  );
+
+
+
+function updatePhoto(){
+
+  const photos=
+    seasons[currentSeason]
+      .photos;
+
+
+  seasonPhoto.classList.add(
+    "fade"
+  );
+
+
+  setTimeout(()=>{
+
+    seasonPhoto.src=
+      photos[currentPhoto];
+
+
+    backgroundPhoto
+      .style.backgroundImage=
+        `url("${photos[currentPhoto]}")`;
+
+
+    photoCount.textContent=
+      String(
+        currentPhoto+1
+      ).padStart(2,"0")
+      +
+      " / "
+      +
+      String(
+        photos.length
+      ).padStart(2,"0");
+
+
+    seasonPhoto.classList.remove(
+      "fade"
+    );
+
+  },220);
+
+}
+
+
+
+document
+  .getElementById(
+    "photoPrev"
+  )
+  .addEventListener(
+    "click",
+    ()=>{
+
+      const photos=
+        seasons[currentSeason]
+          .photos;
+
+      currentPhoto=
+        (
+          currentPhoto
+          -1
+          +photos.length
+        )
+        %
+        photos.length;
+
+      updatePhoto();
+
+    }
+  );
+
+
+
+document
+  .getElementById(
+    "photoNext"
+  )
+  .addEventListener(
+    "click",
+    ()=>{
+
+      const photos=
+        seasons[currentSeason]
+          .photos;
+
+      currentPhoto=
+        (
+          currentPhoto+1
+        )
+        %
+        photos.length;
+
+      updatePhoto();
+
+    }
+  );
+
+
+
+seasonButtons.forEach(
+
+button=>{
+
+  button.addEventListener(
+    "click",
+
+    function(){
+
+      currentSeason=
+        this.dataset.season;
+
+      currentPhoto=0;
+
+      const data=
+        seasons[
+          currentSeason
+        ];
+
+
+      seasonLayout
+        .classList
+        .add(
+          "change"
         );
 
-      }
 
-    );
-
-
-    const finalPage =
-      document.getElementById(
-        "finalPage"
-      );
-
-
-    const finalScroll =
-      document.getElementById(
-        "finalScroll"
-      );
-
-
-    const finishBtn =
-      document.getElementById(
-        "finishBtn"
-      );
-
-
-    const backBtn =
-      document.getElementById(
-        "backBtn"
-      );
-
-
-    finishBtn.addEventListener(
-      "click",
-
-      function () {
-
-        finalPage.classList.add(
-          "active"
-        );
-
-
-        finalScroll.scrollTop = 0;
-
-      }
-
-    );
-
-
-    backBtn.addEventListener(
-      "click",
-
-      function () {
-
-        finalPage.classList.remove(
-          "active"
-        );
-
-      }
-
-    );
-
-
-    document.addEventListener(
-      "keydown",
-
-      function (event) {
-
-        if (
-          event.key === "Escape"
-        ) {
-
-          finalPage.classList.remove(
-            "active"
-          );
-
-        }
-
-      }
-
-    );
-
-
-    const bgm =
-      document.getElementById(
-        "bgm"
-      );
-
-
-    const musicBtn =
-      document.getElementById(
-        "musicBtn"
-      );
-
-
-    const musicStatus =
-      document.getElementById(
-        "musicStatus"
-      );
-
-
-    bgm.volume = 0.30;
-
-
-    function showMusicStatus(
-      text
-    ) {
-
-      musicStatus.textContent =
-        text;
-
-
-      musicStatus.classList.add(
-        "show"
-      );
-
-
-      clearTimeout(
-        window.musicStatusTimer
-      );
-
-
-      window.musicStatusTimer =
-        setTimeout(
-          () => {
-
-            musicStatus
-              .classList
+      seasonButtons
+        .forEach(
+          btn=>
+            btn.classList
               .remove(
-                "show"
-              );
-
-          },
-
-          2600
-        );
-
-    }
-
-
-    function updateMusicButton() {
-
-      if (
-        bgm.paused
-      ) {
-
-        musicBtn.textContent =
-          "♫";
-
-
-        musicBtn.classList.remove(
-          "playing"
+                "active"
+              )
         );
 
 
-        musicBtn.title =
-          "播放背景音乐";
-
-      }
-
-      else {
-
-        musicBtn.textContent =
-          "Ⅱ";
+      this.classList.add(
+        "active"
+      );
 
 
-        musicBtn.classList.add(
-          "playing"
-        );
+      setTimeout(()=>{
+
+        document
+          .getElementById(
+            "seasonIcon"
+          )
+          .innerHTML=
+            data.icon;
 
 
-        musicBtn.title =
-          "暂停背景音乐";
-
-      }
-
-    }
-
-
-    musicBtn.addEventListener(
-      "click",
-
-      async function (event) {
-
-        event.stopPropagation();
+        document
+          .getElementById(
+            "seasonName"
+          )
+          .innerHTML=
+            data.name;
 
 
-        if (
-          bgm.paused
-        ) {
-
-          try {
-
-            await bgm.play();
-
-
-            updateMusicButton();
+        document
+          .getElementById(
+            "seasonDate"
+          )
+          .innerHTML=
+            data.date;
 
 
-            showMusicStatus(
-              "背景音乐已播放"
-            );
-
-          }
-
-          catch (error) {
-
-            console.error(
-              error
-            );
+        document
+          .getElementById(
+            "seasonText"
+          )
+          .innerHTML=
+            data.text;
 
 
-            showMusicStatus(
-              "无法播放，请检查音乐文件路径"
-            );
-
-          }
-
-        }
-
-        else {
-
-          bgm.pause();
+        background
+          .style.background=
+            data.background;
 
 
-          updateMusicButton();
+        updatePhoto();
 
 
-          showMusicStatus(
-            "背景音乐已暂停"
+        seasonLayout
+          .classList
+          .remove(
+            "change"
           );
 
-        }
+      },350);
 
-      }
+    }
 
+  );
+
+}
+
+);
+
+
+/* 初始背景照片 */
+
+backgroundPhoto
+  .style.backgroundImage=
+  'url("../pictures/autumn-road.jpg")';
+
+
+
+/* ==============================
+   FINAL PAGE
+============================== */
+
+
+const finalPage=
+  document.getElementById(
+    "finalPage"
+  );
+
+const finalScroll=
+  document.getElementById(
+    "finalScroll"
+  );
+
+
+document
+  .getElementById(
+    "finishBtn"
+  )
+  .addEventListener(
+    "click",
+    ()=>{
+
+      finalPage
+        .classList
+        .add(
+          "active"
+        );
+
+      finalScroll.scrollTop=0;
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "backBtn"
+  )
+  .addEventListener(
+    "click",
+    ()=>{
+
+      finalPage
+        .classList
+        .remove(
+          "active"
+        );
+
+    }
+  );
+
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(
+      event.key==="Escape"
+    ){
+
+      finalPage
+        .classList
+        .remove(
+          "active"
+        );
+
+    }
+
+  }
+);
+
+
+
+/* ==============================
+   MUSIC
+============================== */
+
+
+const bgm=
+  document.getElementById(
+    "bgm"
+  );
+
+const musicBtn=
+  document.getElementById(
+    "musicBtn"
+  );
+
+const musicStatus=
+  document.getElementById(
+    "musicStatus"
+  );
+
+
+bgm.volume=.30;
+
+
+function showMusicStatus(
+  text
+){
+
+  musicStatus.textContent=
+    text;
+
+  musicStatus
+    .classList
+    .add(
+      "show"
     );
 
 
-    bgm.addEventListener(
-      "play",
+  clearTimeout(
+    window.musicStatusTimer
+  );
 
-      updateMusicButton
+
+  window.musicStatusTimer=
+    setTimeout(
+      ()=>{
+
+        musicStatus
+          .classList
+          .remove(
+            "show"
+          );
+
+      },
+      2200
     );
 
-
-    bgm.addEventListener(
-      "pause",
-
-      updateMusicButton
-    );
+}
 
 
-    bgm.addEventListener(
-      "error",
 
-      function () {
+function updateMusicButton(){
+
+  if(
+    bgm.paused
+  ){
+
+    musicBtn.textContent=
+      "♫";
+
+    musicBtn
+      .classList
+      .remove(
+        "playing"
+      );
+
+  }
+
+  else{
+
+    musicBtn.textContent=
+      "Ⅱ";
+
+    musicBtn
+      .classList
+      .add(
+        "playing"
+      );
+
+  }
+
+}
+
+
+
+musicBtn.addEventListener(
+  "click",
+
+  async event=>{
+
+    event.stopPropagation();
+
+
+    if(
+      bgm.paused
+    ){
+
+      try{
+
+        await bgm.play();
+
+        updateMusicButton();
 
         showMusicStatus(
-          "音乐文件未找到"
+          "背景音乐已播放"
         );
 
       }
 
-    );
+      catch(error){
 
-
-    window.addEventListener(
-      "load",
-
-      async function () {
-
-        try {
-
-          await bgm.play();
-
-          updateMusicButton();
-
-        }
-
-        catch (error) {
-
-          updateMusicButton();
-
-        }
+        showMusicStatus(
+          "无法播放，请检查音乐文件"
+        );
 
       }
 
+    }
+
+    else{
+
+      bgm.pause();
+
+      updateMusicButton();
+
+      showMusicStatus(
+        "背景音乐已暂停"
+      );
+
+    }
+
+  }
+);
+
+
+
+bgm.addEventListener(
+  "play",
+  updateMusicButton
+);
+
+
+bgm.addEventListener(
+  "pause",
+  updateMusicButton
+);
+
+
+bgm.addEventListener(
+  "error",
+  ()=>{
+
+    showMusicStatus(
+      "音乐文件未找到"
     );
 
-  </script>
+  }
+);
+
+
+/* 尝试自动播放 */
+
+window.addEventListener(
+  "load",
+
+  async()=>{
+
+    try{
+
+      await bgm.play();
+
+      updateMusicButton();
+
+    }
+
+    catch(error){
+
+      updateMusicButton();
+
+    }
+
+  }
+);
+
+
+</script>
 
 </body>
 
